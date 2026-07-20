@@ -1,0 +1,378 @@
+/* =====================================
+        BEJJA LOAN CREDIT
+        MAIN STYLESHEET
+===================================== */
+
+
+/* GLOBAL */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    font-family:'Poppins',Arial,sans-serif;
+
+    color:#333;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+}
+
+
+
+/* =====================================
+        NAVBAR
+===================================== */
+
+
+.navbar{
+
+    background:#0F4C81;
+
+    padding:18px 0;
+
+    transition:.3s;
+
+}
+
+
+
+.navbar-brand{
+
+    font-size:22px;
+
+    letter-spacing:.5px;
+
+}
+
+
+
+.nav-link{
+
+    color:white!important;
+
+    margin-left:20px;
+
+    font-weight:500;
+
+}
+
+
+
+.nav-link:hover{
+
+    color:#ffc107!important;
+
+}
+
+
+
+.dropdown-menu{
+
+    border-radius:12px;
+
+    border:none;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+}
+
+
+
+.dropdown-item{
+
+    padding:12px 20px;
+
+}
+
+
+
+.dropdown-item:hover{
+
+    background:#0F4C81;
+
+    color:white;
+
+}
+
+
+
+/* =====================================
+        HERO SECTION
+===================================== */
+
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    background:
+
+    linear-gradient(
+    135deg,
+    rgba(15,76,129,.95),
+    rgba(37,99,235,.9)
+    );
+
+    color:white;
+
+    padding-top:80px;
+
+}
+
+
+
+.hero h1{
+
+    font-size:55px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.hero p{
+
+    font-size:20px;
+
+    line-height:1.7;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.hero-icon{
+
+    font-size:250px;
+
+    color:white;
+
+    opacity:.9;
+
+}
+
+
+
+
+/* =====================================
+        LOAN CARDS
+===================================== */
+
+
+.loan-card{
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    border-radius:20px;
+
+    background:white;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.1);
+
+    height:100%;
+
+    transition:.4s;
+
+}
+
+
+
+.loan-card i{
+
+    font-size:45px;
+
+    color:#0F4C81;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.loan-card h4{
+
+    font-weight:700;
+
+}
+
+
+
+.loan-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+
+    0 20px 40px rgba(0,0,0,.2);
+
+}
+
+
+
+/* =====================================
+        WHY SECTION
+===================================== */
+
+
+.why{
+
+    background:#f8f9fa;
+
+    padding:70px 0;
+
+}
+
+
+
+.why i{
+
+    font-size:45px;
+
+    color:#16A34A;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.why h5{
+
+    font-weight:600;
+
+}
+
+
+
+
+/* =====================================
+        BUTTONS
+===================================== */
+
+
+.btn-success{
+
+    background:#16A34A;
+
+    border:none;
+
+}
+
+
+
+.btn-success:hover{
+
+    background:#12813a;
+
+}
+
+
+
+.btn-warning{
+
+    font-weight:600;
+
+}
+
+
+
+
+/* =====================================
+        FOOTER
+===================================== */
+
+
+footer{
+
+    background:#0b1f33;
+
+    color:white;
+
+    padding:50px 0;
+
+}
+
+
+
+footer h4{
+
+    font-weight:700;
+
+}
+
+
+
+
+/* =====================================
+        ANIMATION
+===================================== */
+
+
+.hero h1,
+.hero p,
+.hero a{
+
+    animation:fadeUp 1s ease;
+
+}
+
+
+
+@keyframes fadeUp{
+
+
+from{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+
+to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+}
+
+
+
+/* =====================================
+        SMOOTH SCROLL
+===================================== */
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}

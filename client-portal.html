@@ -1,4 +1,3 @@
-<script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Client Portal | Bejja Loan Credit</title>
 
 
@@ -15,6 +15,7 @@
 
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
 
 
 <style>
@@ -37,7 +38,6 @@ align-items:center;
 }
 
 
-/* Login Card */
 
 .login-card{
 
@@ -54,7 +54,6 @@ overflow:hidden;
 }
 
 
-/* Logo */
 
 .logo{
 
@@ -65,7 +64,6 @@ color:#0F4C81;
 }
 
 
-/* Inputs */
 
 .form-control{
 
@@ -74,6 +72,7 @@ height:50px;
 border-radius:12px;
 
 }
+
 
 
 .input-group-text{
@@ -85,7 +84,6 @@ border-radius:12px 0 0 12px;
 }
 
 
-/* Login Button */
 
 .btn-login{
 
@@ -104,6 +102,7 @@ border:none;
 }
 
 
+
 .btn-login:hover{
 
 background:#157347;
@@ -111,7 +110,6 @@ background:#157347;
 }
 
 
-/* Create Account */
 
 .create-btn{
 
@@ -122,13 +120,25 @@ padding:10px 25px;
 }
 
 
+
+#errorMessage{
+
+display:none;
+
+}
+
+
+
 </style>
 
 
 </head>
 
 
+
 <body>
+
+
 
 
 
@@ -139,10 +149,14 @@ padding:10px 25px;
 
 
 
+
+
 <div class="text-center mb-4">
 
 
+
 <i class="fa-solid fa-building-columns logo"></i>
+
 
 
 <h3 class="fw-bold mt-3">
@@ -152,6 +166,7 @@ BEJJA LOAN CREDIT
 </h3>
 
 
+
 <p class="text-muted">
 
 Client Portal Login
@@ -159,12 +174,33 @@ Client Portal Login
 </p>
 
 
+
 </div>
 
 
 
 
-<form action="client-dashboard.html">
+
+
+<!-- ERROR MESSAGE -->
+
+
+<div id="errorMessage"
+
+class="alert alert-danger">
+
+</div>
+
+
+
+
+
+
+
+
+<form onsubmit="return loginClient(event)">
+
+
 
 
 
@@ -182,6 +218,7 @@ Phone Number
 <div class="input-group">
 
 
+
 <span class="input-group-text">
 
 <i class="fa-solid fa-phone"></i>
@@ -190,9 +227,12 @@ Phone Number
 
 
 
+
 <input
 
 type="tel"
+
+id="phone"
 
 class="form-control"
 
@@ -201,10 +241,14 @@ placeholder="07XXXXXXXX"
 required>
 
 
+
 </div>
 
 
 </div>
+
+
+
 
 
 
@@ -224,6 +268,7 @@ Password
 <div class="input-group">
 
 
+
 <span class="input-group-text">
 
 <i class="fa-solid fa-lock"></i>
@@ -232,9 +277,12 @@ Password
 
 
 
+
 <input
 
 type="password"
+
+id="password"
 
 class="form-control"
 
@@ -243,10 +291,13 @@ placeholder="Enter Password"
 required>
 
 
+
 </div>
 
 
 </div>
+
+
 
 
 
@@ -268,6 +319,8 @@ Forgot Password?
 
 
 
+
+
 <button 
 
 type="submit"
@@ -275,12 +328,17 @@ type="submit"
 class="btn btn-success w-100 btn-login">
 
 
+
 <i class="fa-solid fa-right-to-bracket"></i>
 
-Login
+
+LOGIN
+
 
 
 </button>
+
+
 
 
 
@@ -289,11 +347,21 @@ Login
 
 
 
+
+
+
+
 <hr>
 
 
 
+
+
+
+
+
 <div class="text-center">
+
 
 
 <p>
@@ -304,6 +372,8 @@ Don't have an account?
 
 
 
+
+
 <a 
 
 href="register.html"
@@ -311,61 +381,84 @@ href="register.html"
 class="btn btn-outline-primary create-btn">
 
 
+
 <i class="fa-solid fa-user-plus"></i>
 
-Create New Account
+
+CREATE NEW ACCOUNT
+
 
 
 </a>
 
 
-</div>
-
-
-
-</div>
-
 
 </div>
 
 
 
 
-</body>
 
-</html>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+
 function loginClient(event){
+
 
 event.preventDefault();
 
 
+
+
 let enteredPhone = document.getElementById("phone").value;
+
 
 let enteredPassword = document.getElementById("password").value;
 
 
 
+
 let savedPhone = localStorage.getItem("clientPhone");
+
 
 let savedPassword = localStorage.getItem("clientPassword");
 
 
 
+let errorBox = document.getElementById("errorMessage");
 
 
-// No account registered
+
+
+
+// No account exists
 
 if(savedPhone === null || savedPassword === null){
 
 
-document.getElementById("errorMessage").innerHTML =
+errorBox.innerHTML =
 "Account not found. Please create an account first.";
 
 
-document.getElementById("errorMessage").style.display="block";
+errorBox.style.display="block";
 
 
 return false;
+
 
 }
 
@@ -373,22 +466,24 @@ return false;
 
 
 
-// Phone exists but password wrong
+// Phone check
+
 
 if(enteredPhone !== savedPhone){
 
 
-document.getElementById("errorMessage").innerHTML =
+errorBox.innerHTML =
 "Phone number is not registered.";
 
 
-document.getElementById("errorMessage").style.display="block";
+errorBox.style.display="block";
 
 
 return false;
 
 
 }
+
 
 
 
@@ -400,11 +495,11 @@ return false;
 if(enteredPassword !== savedPassword){
 
 
-document.getElementById("errorMessage").innerHTML =
+errorBox.innerHTML =
 "Incorrect password. Please try again.";
 
 
-document.getElementById("errorMessage").style.display="block";
+errorBox.style.display="block";
 
 
 return false;
@@ -425,10 +520,19 @@ localStorage.setItem("loggedIn","true");
 window.location.href="client-dashboard.html";
 
 
-return true;
+return false;
 
 
 }
 
 
+
 </script>
+
+
+
+
+
+</body>
+
+</html>

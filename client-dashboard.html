@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Client Dashboard | Bejja Loan Credit</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+
+
+<style>
+
+
+body{
+
+font-family:'Poppins',sans-serif;
+
+background:#f4f7fb;
+
+}
+
+
+
+/* Sidebar */
+
+
+.sidebar{
+
+height:100vh;
+
+width:260px;
+
+position:fixed;
+
+background:linear-gradient(180deg,#0F4C81,#2563EB);
+
+color:white;
+
+padding:25px;
+
+}
+
+
+
+.sidebar h3{
+
+font-weight:700;
+
+}
+
+
+
+.sidebar a{
+
+display:block;
+
+color:white;
+
+text-decoration:none;
+
+padding:14px;
+
+margin:8px 0;
+
+border-radius:10px;
+
+}
+
+
+
+.sidebar a:hover{
+
+background:rgba(255,255,255,.2);
+
+}
+
+
+
+
+
+/* Main */
+
+
+.main{
+
+margin-left:260px;
+
+padding:30px;
+
+}
+
+
+
+
+
+.top-card{
+
+background:white;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+
+.stat-card{
+
+border:none;
+
+border-radius:18px;
+
+padding:25px;
+
+color:white;
+
+height:150px;
+
+}
+
+
+
+.loan{
+
+background:#0F4C81;
+
+}
+
+
+.balance{
+
+background:#198754;
+
+}
+
+
+.payment{
+
+background:#2563EB;
+
+}
+
+
+
+
+
+.progress{
+
+height:12px;
+
+border-radius:20px;
+
+}
+
+
+
+.table{
+
+background:white;
+
+border-radius:15px;
+
+overflow:hidden;
+
+}
+
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+
+<!-- Sidebar -->
+
+
+<div class="sidebar">
+
+
+<h3>
+
+<i class="fa-solid fa-building-columns"></i>
+
+Bejja Credit
+
+</h3>
+
+
+<hr>
+
+
+
+<a href="client-dashboard.html">
+
+<i class="fa fa-home"></i>
+
+Dashboard
+
+</a>
+
+
+
+<a href="apply-loan.html">
+
+<i class="fa fa-money-bill"></i>
+
+Apply Loan
+
+</a>
+
+
+
+<a href="my-loan.html">
+
+<i class="fa fa-file-invoice-dollar"></i>
+
+My Loan
+
+</a>
+
+
+
+
+<a href="repayments.html">
+
+<i class="fa fa-credit-card"></i>
+
+Repayments
+
+</a>
+
+
+
+
+<a href="profile.html">
+
+<i class="fa fa-user"></i>
+
+Profile
+
+</a>
+
+
+
+<a href="logout.html">
+
+<i class="fa fa-sign-out"></i>
+
+Logout
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+<!-- Main Content -->
+
+
+<div class="main">
+
+
+<div class="top-card mb-4">
+
+
+<h2>
+
+Welcome, Client 👋
+
+</h2>
+
+
+<p class="text-muted">
+
+Manage your loans and repayments from your dashboard.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<div class="row g-4">
+
+
+
+<div class="col-md-4">
+
+
+<div class="stat-card loan">
+
+
+<h5>
+
+Active Loan
+
+</h5>
+
+
+<h2>
+
+KES 50,000
+
+</h2>
+
+
+<p>
+
+Approved
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+
+<div class="stat-card balance">
+
+
+<h5>
+
+Remaining Balance
+
+</h5>
+
+
+<h2>
+
+KES 32,000
+
+</h2>
+
+
+<p>
+
+To Repay
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+
+<div class="stat-card payment">
+
+
+<h5>
+
+Next Payment
+
+</h5>
+
+
+<h2>
+
+KES 5,000
+
+</h2>
+
+
+<p>
+
+Due: 30 July 2026
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="top-card mt-5">
+
+
+<h4>
+
+Loan Repayment Progress
+
+</h4>
+
+
+<div class="progress mt-3">
+
+
+<div 
+
+class="progress-bar bg-success"
+
+style="width:40%">
+
+40%
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="top-card mt-5">
+
+
+<div class="d-flex justify-content-between">
+
+
+<h4>
+
+Recent Transactions
+
+</h4>
+
+
+<a href="apply-loan.html" class="btn btn-success">
+
+
+Apply New Loan
+
+</a>
+
+
+</div>
+
+
+
+<br>
+
+
+
+<table class="table table-hover">
+
+
+<thead>
+
+
+<tr>
+
+<th>Date</th>
+
+<th>Description</th>
+
+<th>Amount</th>
+
+<th>Status</th>
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody>
+
+
+<tr>
+
+<td>20 July 2026</td>
+
+<td>Loan Payment</td>
+
+<td>KES 5,000</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Completed
+
+</span>
+
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>01 July 2026</td>
+
+<td>Loan Approval</td>
+
+<td>KES 50,000</td>
+
+<td>
+
+<span class="badge bg-primary">
+
+Approved
+
+</span>
+
+</td>
+
+</tr>
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</body>
+
+
+</html>

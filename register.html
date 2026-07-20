@@ -19,18 +19,25 @@
 body{
 
 background:linear-gradient(135deg,#0F4C81,#2563EB);
+
 font-family:'Poppins',sans-serif;
+
 min-height:100vh;
+
 padding:40px 0;
 
 }
 
 
-.register-card{
+.register-card,
+.success-card{
 
 width:650px;
+
 border:none;
+
 border-radius:20px;
+
 box-shadow:0 20px 40px rgba(0,0,0,.25);
 
 }
@@ -39,16 +46,17 @@ box-shadow:0 20px 40px rgba(0,0,0,.25);
 .logo{
 
 font-size:60px;
+
 color:#0F4C81;
 
 }
-
 
 
 .form-control,
 .form-select{
 
 height:48px;
+
 border-radius:12px;
 
 }
@@ -64,8 +72,11 @@ height:100px;
 .btn-register{
 
 height:50px;
+
 border-radius:12px;
+
 font-size:18px;
+
 font-weight:600;
 
 }
@@ -74,10 +85,6 @@ font-weight:600;
 .success-card{
 
 display:none;
-width:650px;
-border:none;
-border-radius:20px;
-box-shadow:0 20px 40px rgba(0,0,0,.25);
 
 }
 
@@ -85,13 +92,13 @@ box-shadow:0 20px 40px rgba(0,0,0,.25);
 .success-icon{
 
 font-size:80px;
+
 color:#198754;
 
 }
 
 
 </style>
-
 
 </head>
 
@@ -105,7 +112,6 @@ color:#198754;
 
 
 <!-- REGISTER FORM -->
-
 
 <div class="card register-card" id="registerBox">
 
@@ -140,7 +146,9 @@ Create Client Account
 
 
 
-<form id="registerForm" onsubmit="return createAccount(event)">
+<form id="registerForm" onsubmit="createAccount(event)">
+
+
 
 
 
@@ -159,7 +167,7 @@ Personal Details
 
 <label>Full Name</label>
 
-<input 
+<input id="fullname"
 type="text"
 class="form-control"
 required>
@@ -169,11 +177,12 @@ required>
 
 
 
+
 <div class="col-md-6 mb-3">
 
 <label>Phone Number</label>
 
-<input 
+<input id="phone"
 type="tel"
 class="form-control"
 placeholder="07XXXXXXXX"
@@ -184,11 +193,12 @@ required>
 
 
 
+
 <div class="col-md-6 mb-3">
 
 <label>National ID Number</label>
 
-<input 
+<input
 type="number"
 class="form-control"
 required>
@@ -198,11 +208,12 @@ required>
 
 
 
+
 <div class="col-md-6 mb-3">
 
 <label>Date of Birth</label>
 
-<input 
+<input
 type="date"
 class="form-control"
 required>
@@ -237,7 +248,7 @@ required>
 
 <label>Occupation / Business</label>
 
-<input 
+<input
 type="text"
 class="form-control"
 required>
@@ -252,7 +263,7 @@ required>
 
 <label>Residential Address</label>
 
-<textarea 
+<textarea
 class="form-control"
 required></textarea>
 
@@ -261,6 +272,7 @@ required></textarea>
 
 
 </div>
+
 
 
 
@@ -281,6 +293,7 @@ Account Security
 
 
 
+
 <div class="row">
 
 
@@ -291,9 +304,9 @@ Account Security
 
 <input
 
-type="password"
-
 id="password"
+
+type="password"
 
 class="form-control"
 
@@ -311,9 +324,9 @@ required>
 
 <input
 
-type="password"
-
 id="confirmPassword"
+
+type="password"
 
 class="form-control"
 
@@ -324,6 +337,7 @@ required>
 
 
 </div>
+
 
 
 
@@ -341,6 +355,8 @@ required>
 Documents
 
 </h5>
+
+
 
 
 
@@ -389,8 +405,6 @@ class="form-check-input"
 
 type="checkbox"
 
-id="terms"
-
 required>
 
 
@@ -411,9 +425,9 @@ I agree to Bejja Loan Credit terms and conditions.
 
 <button
 
-class="btn btn-success w-100 btn-register"
+type="submit"
 
-type="submit">
+class="btn btn-success w-100 btn-register">
 
 
 <i class="fa-solid fa-user-plus"></i>
@@ -425,13 +439,12 @@ CREATE ACCOUNT
 
 
 
+
+
 </form>
 
 
 
-
-
-
 </div>
 
 
@@ -445,40 +458,46 @@ CREATE ACCOUNT
 
 
 
-<!-- SUCCESS MESSAGE -->
+<!-- SUCCESS BOX -->
 
 
+<div class="card success-card" id="successBox">
 
-<div class="card success-card p-5 text-center" id="successBox">
 
+<div class="card-body p-5 text-center">
 
 
 <i class="fa-solid fa-circle-check success-icon"></i>
 
 
-
 <h2 class="fw-bold mt-4">
 
-Account Created Successfully
+Congratulations!
 
 </h2>
 
 
+<h4>
+
+Account Created Successfully
+
+</h4>
+
 
 <p class="text-muted">
 
-Your Bejja Loan Credit account has been created successfully.
+Your Bejja Loan Credit account has been created.
 
-You can now login to your client portal.
+You can now login to your Client Portal.
 
 </p>
 
 
 
 
-<a href="client-login.html"
+<a href="./client-login.html"
 
-class="btn btn-success rounded-pill px-5 mt-3">
+class="btn btn-success rounded-pill px-5">
 
 
 <i class="fa-solid fa-right-to-bracket"></i>
@@ -490,6 +509,8 @@ LOGIN NOW
 
 
 
+</div>
+
 
 </div>
 
@@ -498,8 +519,9 @@ LOGIN NOW
 
 
 
-
 </div>
+
+
 
 
 
@@ -517,23 +539,43 @@ event.preventDefault();
 
 
 
+
+
 let password=document.getElementById("password").value;
 
 
 let confirmPassword=document.getElementById("confirmPassword").value;
 
 
+let phone=document.getElementById("phone").value;
+
+
+
+
+
 
 if(password !== confirmPassword){
 
 
-alert("Passwords do not match. Please enter the same password.");
+alert("Passwords do not match. Please check again.");
 
-
-return false;
+return;
 
 
 }
+
+
+
+
+
+
+// Save account details
+
+localStorage.setItem("clientPhone",phone);
+
+localStorage.setItem("clientPassword",password);
+
+
 
 
 
@@ -546,10 +588,8 @@ document.getElementById("successBox").style.display="block";
 
 
 
-return false;
-
-
 }
+
 
 
 

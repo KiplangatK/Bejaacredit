@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment History | Bejja Loan Credit</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+
+
+<style>
+
+
+body{
+
+font-family:Poppins,sans-serif;
+
+background:#f4f7fb;
+
+}
+
+
+
+.sidebar{
+
+height:100vh;
+
+width:260px;
+
+position:fixed;
+
+background:linear-gradient(180deg,#0F4C81,#2563EB);
+
+color:white;
+
+padding:25px;
+
+}
+
+
+
+.sidebar a{
+
+display:block;
+
+color:white;
+
+text-decoration:none;
+
+padding:14px;
+
+margin:8px 0;
+
+border-radius:10px;
+
+}
+
+
+
+.sidebar a:hover{
+
+background:rgba(255,255,255,.2);
+
+}
+
+
+
+.main{
+
+margin-left:260px;
+
+padding:30px;
+
+}
+
+
+
+.card{
+
+border:none;
+
+border-radius:20px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+
+
+<div class="sidebar">
+
+
+<h3>
+
+<i class="fa-solid fa-building-columns"></i>
+
+Bejja Credit
+
+</h3>
+
+
+<hr>
+
+
+<a href="client-dashboard.html">
+
+<i class="fa fa-home"></i>
+
+Dashboard
+
+</a>
+
+
+
+<a href="apply-loan.html">
+
+<i class="fa fa-money-bill"></i>
+
+Apply Loan
+
+</a>
+
+
+
+<a href="my-loan.html">
+
+<i class="fa fa-file"></i>
+
+My Loan
+
+</a>
+
+
+
+<a href="payment-history.html">
+
+<i class="fa fa-history"></i>
+
+Payment History
+
+</a>
+
+
+
+<a href="client-login.html">
+
+<i class="fa fa-sign-out"></i>
+
+Logout
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="main">
+
+
+<h2>
+
+<i class="fa fa-history"></i>
+
+Payment History
+
+</h2>
+
+
+<p class="text-muted">
+
+All loan payments and transactions
+
+</p>
+
+
+
+
+
+
+
+<div class="card p-4 mt-4">
+
+
+
+<table class="table table-hover">
+
+
+<thead>
+
+
+<tr>
+
+<th>Date</th>
+
+<th>Description</th>
+
+<th>Amount</th>
+
+<th>Principal Paid</th>
+
+<th>Interest Paid</th>
+
+<th>Remaining Principal</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="paymentTable">
+
+
+<tr>
+
+<td colspan="6"
+
+class="text-center">
+
+No payments found
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+let loan = localStorage.getItem("clientLoan");
+
+
+
+if(loan){
+
+
+
+let data = JSON.parse(loan);
+
+
+
+let table = document.getElementById("paymentTable");
+
+
+
+if(data.transactions && data.transactions.length > 0){
+
+
+
+table.innerHTML="";
+
+
+
+data.transactions.forEach(function(payment){
+
+
+
+table.innerHTML += `
+
+
+<tr>
+
+
+<td>
+
+${payment.date}
+
+</td>
+
+
+
+<td>
+
+${payment.description}
+
+</td>
+
+
+
+<td>
+
+KES ${payment.amount}
+
+</td>
+
+
+
+<td>
+
+KES ${payment.principalPaid || 0}
+
+</td>
+
+
+
+<td>
+
+KES ${payment.interestPaid || 0}
+
+</td>
+
+
+
+<td>
+
+KES ${payment.remaining || data.remainingPrincipal}
+
+</td>
+
+
+
+</tr>
+
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+}
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+
+</html>

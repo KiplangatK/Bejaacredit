@@ -1,704 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Admin Dashboard | Bejja Loan Credit</title>
-
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
-
-
-<style>
-
-body{
-
-font-family:'Poppins',sans-serif;
-
-background:#f4f7fb;
-
-}
-
-
-/* Sidebar */
-
-.sidebar{
-
-height:100vh;
-
-width:260px;
-
-position:fixed;
-
-background:linear-gradient(180deg,#0F4C81,#2563EB);
-
-color:white;
-
-padding:25px;
-
-}
-
-
-.sidebar h3{
-
-font-weight:700;
-
-}
-
-
-
-.sidebar a{
-
-display:block;
-
-color:white;
-
-text-decoration:none;
-
-padding:14px;
-
-margin:8px 0;
-
-border-radius:10px;
-
-}
-
-
-
-.sidebar a:hover{
-
-background:rgba(255,255,255,.2);
-
-}
-
-
-
-/* Main */
-
-
-.main{
-
-margin-left:260px;
-
-padding:30px;
-
-}
-
-
-
-
-.card-box{
-
-border-radius:18px;
-
-padding:25px;
-
-color:white;
-
-height:150px;
-
-}
-
-
-
-.clients{
-
-background:#0F4C81;
-
-}
-
-
-.active{
-
-background:#198754;
-
-}
-
-
-.pending{
-
-background:#f39c12;
-
-}
-
-
-.late{
-
-background:#dc3545;
-
-}
-
-
-
-.performance{
-
-background:white;
-
-border-radius:20px;
-
-padding:25px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-}
-
-
-
-
-.table-card{
-
-background:white;
-
-padding:25px;
-
-border-radius:20px;
-
-margin-top:30px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-}
-
-
-</style>
-
-</head>
-
-
-
-<body>
-
-
-
-
-
-<!-- SIDEBAR -->
-
-
-<div class="sidebar">
-
-
-<h3>
-
-<i class="fa-solid fa-building-columns"></i>
-
-Bejja Admin
-
-</h3>
-
-
-<hr>
-
-
-
-<a href="admin-dashboard.html">
-
-<i class="fa fa-dashboard"></i>
-
-Dashboard
-
-</a>
-
-
-
-
-<a href="#loans">
-
-<i class="fa fa-money-bill"></i>
-
-Loan Applications
-
-</a>
-
-
-
-
-<a href="#clients">
-
-<i class="fa fa-users"></i>
-
-Clients
-
-</a>
-
-
-
-
-<a href="logout.html">
-
-<i class="fa fa-sign-out"></i>
-
-Logout
-
-</a>
-
-
-
-</div>
-
-
-
-
-
-
-
-<div class="main">
-
-
-
-
-
-<h2 class="fw-bold">
-
-Admin Dashboard
-
-</h2>
-
-
-
-<p class="text-muted">
-
-Monitor Bejja Loan Credit performance
-
-</p>
-
-
-
-
-
-
-
-<!-- STATISTICS -->
-
-
-
-<div class="row g-4">
-
-
-
-
-
-<div class="col-md-3">
-
-
-<div class="card-box clients">
-
-
-<h5>
-
-Registered Clients
-
-</h5>
-
-
-<h2 id="totalClients">
-
-0
-
-</h2>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="col-md-3">
-
-
-<div class="card-box active">
-
-
-<h5>
-
-Active Loans
-
-</h5>
-
-
-<h2 id="activeLoans">
-
-0
-
-</h2>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="col-md-3">
-
-
-<div class="card-box pending">
-
-
-<h5>
-
-Pending Loans
-
-</h5>
-
-
-<h2 id="pendingLoans">
-
-0
-
-</h2>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="col-md-3">
-
-
-<div class="card-box late">
-
-
-<h5>
-
-Late Loans
-
-</h5>
-
-
-<h2 id="lateLoans">
-
-0
-
-</h2>
-
-
-</div>
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- PERFORMANCE -->
-
-
-
-<div class="performance mt-5">
-
-
-<h4>
-
-Performance Statistics
-
-</h4>
-
-
-
-<hr>
-
-
-
-<div class="row text-center">
-
-
-
-<div class="col-md-3">
-
-<h6>
-
-Total Issued
-
-</h6>
-
-
-<h4 id="totalIssued">
-
-KES 0
-
-</h4>
-
-</div>
-
-
-
-
-<div class="col-md-3">
-
-<h6>
-
-Principal Remaining
-
-</h6>
-
-
-<h4 id="principalRemaining">
-
-KES 0
-
-</h4>
-
-</div>
-
-
-
-
-
-<div class="col-md-3">
-
-<h6>
-
-Interest Collected
-
-</h6>
-
-
-<h4 id="interestCollected">
-
-KES 0
-
-</h4>
-
-</div>
-
-
-
-
-
-
-<div class="col-md-3">
-
-<h6>
-
-Performance
-
-</h6>
-
-
-<h4 id="performanceRate">
-
-0%
-
-</h4>
-
-</div>
-
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- LOAN APPLICATIONS -->
-
-
-
-<div class="table-card" id="loans">
-
-
-<h4>
-
-Pending Loan Applications
-
-</h4>
-
-
-
-<table class="table table-hover">
-
-
-<thead>
-
-
-<tr>
-
-<th>Client</th>
-
-<th>Amount</th>
-
-<th>Interest</th>
-
-<th>Reason</th>
-
-<th>Action</th>
-
-
-</tr>
-
-
-</thead>
-
-
-
-<tbody id="loanApplications">
-
-
-<tr>
-
-<td colspan="5" class="text-center">
-
-No pending applications
-
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- CLIENTS -->
-
-
-
-<div class="table-card" id="clients">
-
-
-<h4>
-
-Registered Clients
-
-</h4>
-
-
-
-<table class="table table-hover">
-
-
-<thead>
-
-
-<tr>
-
-
-<th>Name</th>
-
-<th>Phone</th>
-
-<th>ID</th>
-
-<th>Occupation</th>
-
-
-</tr>
-
-
-</thead>
-
-
-
-<tbody id="clientList">
-
-
-
-<tr>
-
-<td colspan="4"
-
-class="text-center">
-
-No clients found
-
-</td>
-
-</tr>
-
-
-
-</tbody>
-
-
-
-</table>
-
-
-</div>
-
-
-
-
-
-
-
-
-
 <script>
 
 
-
-// Load clients
-
+// Load registered client
 
 let clientData = localStorage.getItem("clientData");
 
 
+let client = null;
+
 
 if(clientData){
 
-
-let client = JSON.parse(clientData);
-
+client = JSON.parse(clientData);
 
 
 document.getElementById("totalClients").innerHTML="1";
@@ -725,14 +38,11 @@ document.getElementById("clientList").innerHTML=`
 
 
 
- 
 
 
 
 
-
-// Load loan application
-
+// Load pending loan application
 
 
 let application = localStorage.getItem("loanApplication");
@@ -747,11 +57,15 @@ let loan = JSON.parse(application);
 
 
 
+
+
 if(loan.status==="PENDING"){
 
 
 
 document.getElementById("pendingLoans").innerHTML="1";
+
+
 
 
 
@@ -763,7 +77,7 @@ document.getElementById("loanApplications").innerHTML=`
 
 <td>
 
-${clientData ? JSON.parse(clientData).fullname : ""}
+${client ? client.fullname : ""}
 
 </td>
 
@@ -796,7 +110,9 @@ ${loan.reason}
 <td>
 
 
-<button onclick="approveLoan()"
+<button 
+
+onclick="approveLoan()"
 
 class="btn btn-success btn-sm">
 
@@ -806,14 +122,15 @@ Approve
 
 
 
-<button onclick="rejectLoan()"
+<button 
+
+onclick="rejectLoan()"
 
 class="btn btn-danger btn-sm">
 
 Reject
 
 </button>
-
 
 
 </td>
@@ -838,11 +155,15 @@ Reject
 
 
 
+
+// APPROVE LOAN
+
+
 function approveLoan(){
 
 
 
-let loan=JSON.parse(
+let loanApplication = JSON.parse(
 
 localStorage.getItem("loanApplication")
 
@@ -850,16 +171,109 @@ localStorage.getItem("loanApplication")
 
 
 
-loan.status="ACTIVE";
+
+let today = new Date();
 
 
-loan.remaining=loan.amount;
 
 
-loan.paid=0;
+let approvedLoan = {
 
 
-loan.dueDate="Manual Interest Payment";
+
+amount:Number(loanApplication.amount),
+
+
+
+originalPrincipal:Number(loanApplication.amount),
+
+
+
+remainingPrincipal:Number(loanApplication.amount),
+
+
+
+principalPaid:0,
+
+
+
+interestRate:20,
+
+
+
+monthlyInterest:
+
+Number(loanApplication.amount) * 0.20,
+
+
+
+reason:
+
+loanApplication.reason,
+
+
+
+status:"ACTIVE",
+
+
+
+loanTakenDate:
+
+today.toLocaleDateString(),
+
+
+
+dueDate:
+
+"Manual Interest Payment",
+
+
+
+
+transactions:[
+
+
+
+{
+
+
+date:
+
+today.toLocaleDateString(),
+
+
+
+description:
+
+"Loan Approved",
+
+
+
+amount:
+
+Number(loanApplication.amount),
+
+
+
+status:
+
+"Approved"
+
+
+
+}
+
+
+
+]
+
+
+
+};
+
+
+
+
 
 
 
@@ -868,17 +282,33 @@ localStorage.setItem(
 
 "clientLoan",
 
-JSON.stringify(loan)
+JSON.stringify(approvedLoan)
 
 );
 
 
 
-localStorage.removeItem("loanApplication");
 
 
 
-alert("Loan approved successfully");
+localStorage.removeItem(
+
+"loanApplication"
+
+);
+
+
+
+
+
+
+alert(
+
+"Loan approved successfully"
+
+);
+
+
 
 
 
@@ -894,11 +324,16 @@ location.reload();
 
 
 
+
+
+// REJECT LOAN
+
+
 function rejectLoan(){
 
 
 
-let loan=JSON.parse(
+let loanApplication = JSON.parse(
 
 localStorage.getItem("loanApplication")
 
@@ -906,7 +341,10 @@ localStorage.getItem("loanApplication")
 
 
 
-loan.status="REJECTED";
+
+loanApplication.status="REJECTED";
+
+
 
 
 
@@ -914,13 +352,21 @@ localStorage.setItem(
 
 "loanApplication",
 
-JSON.stringify(loan)
+JSON.stringify(loanApplication)
 
 );
 
 
 
-alert("Loan rejected");
+
+
+alert(
+
+"Loan application rejected"
+
+);
+
+
 
 
 
@@ -933,12 +379,7 @@ location.reload();
 
 
 
+
+
+
 </script>
-
-
-
-
-
-</body>
-
-</html>

@@ -113,6 +113,7 @@ background:#f59e0b;
 }
 
 
+
 .card{
 
 border:none;
@@ -129,8 +130,8 @@ box-shadow:0 10px 25px rgba(0,0,0,.08);
 </head>
 
 
-
 <body>
+
 
 
 
@@ -147,6 +148,7 @@ Bejja Credit
 
 
 <hr>
+
 
 
 <a href="client-dashboard.html">
@@ -207,6 +209,7 @@ Logout
 
 
 
+
 <div class="main">
 
 
@@ -219,8 +222,9 @@ My Loan
 </h2>
 
 
-
 <br>
+
+
 
 
 
@@ -228,8 +232,9 @@ My Loan
 
 
 
-<div class="col-md-4">
 
+
+<div class="col-md-4">
 
 <div class="loan-card blue">
 
@@ -261,7 +266,6 @@ KES 0
 
 <div class="col-md-4">
 
-
 <div class="loan-card green">
 
 
@@ -291,7 +295,6 @@ KES 0
 
 
 <div class="col-md-4">
-
 
 <div class="loan-card orange">
 
@@ -341,7 +344,6 @@ Loan Information
 <hr>
 
 
-
 <table class="table">
 
 
@@ -365,6 +367,8 @@ NO LOAN
 
 
 
+
+
 <tr>
 
 <th>Loan Taken Date</th>
@@ -376,6 +380,7 @@ NO LOAN
 </td>
 
 </tr>
+
 
 
 
@@ -395,6 +400,7 @@ NO LOAN
 
 
 
+
 <tr>
 
 <th>Interest Rate</th>
@@ -406,6 +412,7 @@ NO LOAN
 </td>
 
 </tr>
+
 
 
 
@@ -425,6 +432,7 @@ KES 0
 
 
 
+
 <tr>
 
 <th>Principal Paid</th>
@@ -439,11 +447,47 @@ KES 0
 
 
 
+
+
+<tr>
+
+<th>Remaining Principal</th>
+
+<td id="tableRemaining">
+
+KES 0
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>Current Monthly Interest</th>
+
+<td id="tableInterest">
+
+KES 0
+
+</td>
+
+</tr>
+
+
+
+
+
 </table>
 
 
 
 </div>
+
+
 
 
 
@@ -461,7 +505,7 @@ Loan Transactions
 </h4>
 
 
-<p>
+<p class="text-muted">
 
 View principal and interest transactions.
 
@@ -472,7 +516,11 @@ View principal and interest transactions.
 
 class="btn btn-primary rounded-pill">
 
+
+<i class="fa fa-history"></i>
+
 View Transaction History
+
 
 </a>
 
@@ -493,81 +541,78 @@ View Transaction History
 
 
 
-
 <script>
 
 
-let loan = localStorage.getItem("clientLoan");
+function loadLoan(){
 
 
 
-if(loan){
-
-
-let data = JSON.parse(loan);
-
-
-
-document.getElementById("loanAmount").innerHTML=
-
-"KES "+data.amount;
+let activeLoan =
+localStorage.getItem("clientLoan");
 
 
 
-document.getElementById("remainingPrincipal").innerHTML=
-
-"KES "+data.remainingPrincipal;
-
-
-
-document.getElementById("monthlyInterest").innerHTML=
-
-"KES "+data.monthlyInterest;
+let pendingLoan =
+localStorage.getItem("loanApplication");
 
 
 
-document.getElementById("originalPrincipal").innerHTML=
-
-"KES "+data.originalPrincipal;
 
 
 
-document.getElementById("principalPaid").innerHTML=
 
-"KES "+data.principalPaid;
-
+// Approved loan
 
 
-document.getElementById("loanDate").innerHTML=
-
-data.loanTakenDate;
+if(activeLoan){
 
 
 
-document.getElementById("dueDate").innerHTML=
-
-data.dueDate;
+let loan = JSON.parse(activeLoan);
 
 
 
-document.getElementById("status").innerHTML=
+showLoan(loan);
 
-data.status;
-
-
-
-if(data.status==="ACTIVE"){
-
-
-document.getElementById("status").className=
-
-"badge bg-success";
 
 
 }
 
 
+
+
+
+
+
+// Pending loan
+
+
+else if(pendingLoan){
+
+
+
+let loan = JSON.parse(pendingLoan);
+
+
+
+document.getElementById("loanAmount").innerHTML =
+"KES "+loan.amount;
+
+
+
+document.getElementById("status").innerHTML =
+"PENDING";
+
+
+document.getElementById("status").className =
+"badge bg-warning";
+
+
+
 }
+
+
 
 
 
@@ -576,16 +621,108 @@ document.getElementById("status").className=
 else{
 
 
-document.getElementById("status").innerHTML=
-
-"NO ACTIVE LOAN";
+document.getElementById("status").innerHTML =
+"NO LOAN";
 
 
 }
 
 
 
+
+}
+
+
+
+
+
+
+
+
+function showLoan(loan){
+
+
+
+document.getElementById("loanAmount").innerHTML =
+"KES "+loan.amount;
+
+
+
+document.getElementById("remainingPrincipal").innerHTML =
+"KES "+loan.remainingPrincipal;
+
+
+
+document.getElementById("monthlyInterest").innerHTML =
+"KES "+loan.monthlyInterest;
+
+
+
+document.getElementById("loanDate").innerHTML =
+loan.loanTakenDate;
+
+
+
+document.getElementById("dueDate").innerHTML =
+loan.dueDate;
+
+
+
+document.getElementById("originalPrincipal").innerHTML =
+"KES "+loan.originalPrincipal;
+
+
+
+document.getElementById("principalPaid").innerHTML =
+"KES "+loan.principalPaid;
+
+
+
+document.getElementById("tableRemaining").innerHTML =
+"KES "+loan.remainingPrincipal;
+
+
+
+document.getElementById("tableInterest").innerHTML =
+"KES "+loan.monthlyInterest;
+
+
+
+let badge=document.getElementById("status");
+
+
+
+badge.innerHTML=loan.status;
+
+
+
+
+if(loan.status==="ACTIVE"){
+
+badge.className="badge bg-success";
+
+}
+
+
+if(loan.status==="REJECTED"){
+
+badge.className="badge bg-danger";
+
+}
+
+
+
+}
+
+
+
+loadLoan();
+
+
+
 </script>
+
+
 
 
 

@@ -1,24 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | Bejja Loan Credit</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+
+
+<style>
+
+
+body{
+
+font-family:Poppins,sans-serif;
+
+background:#f4f7fb;
+
+}
+
+
+
+.sidebar{
+
+height:100vh;
+
+width:260px;
+
+position:fixed;
+
+background:linear-gradient(180deg,#0F4C81,#2563EB);
+
+color:white;
+
+padding:25px;
+
+}
+
+
+
+.sidebar a{
+
+display:block;
+
+color:white;
+
+text-decoration:none;
+
+padding:14px;
+
+margin:8px 0;
+
+border-radius:10px;
+
+}
+
+
+
+.sidebar a:hover{
+
+background:rgba(255,255,255,.2);
+
+}
+
+
+
+.main{
+
+margin-left:260px;
+
+padding:30px;
+
+}
+
+
+
+.stat-card{
+
+padding:25px;
+
+border-radius:18px;
+
+color:white;
+
+height:140px;
+
+}
+
+
+
+.blue{
+
+background:#0F4C81;
+
+}
+
+
+.green{
+
+background:#198754;
+
+}
+
+
+.orange{
+
+background:#f59e0b;
+
+}
+
+
+.red{
+
+background:#dc3545;
+
+}
+
+
+
+.box{
+
+background:white;
+
+padding:25px;
+
+border-radius:20px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+margin-top:30px;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+
+
+<div class="sidebar">
+
+
+<h3>
+
+<i class="fa fa-building-columns"></i>
+
+Bejja Admin
+
+</h3>
+
+
+<hr>
+
+
+<a href="admin-dashboard.html">
+
+<i class="fa fa-home"></i>
+
+Dashboard
+
+</a>
+
+
+<a href="#applications">
+
+<i class="fa fa-money-bill"></i>
+
+Loan Applications
+
+</a>
+
+
+
+<a href="#clients">
+
+<i class="fa fa-users"></i>
+
+Clients
+
+</a>
+
+
+
+<a href="admin-login.html">
+
+<i class="fa fa-sign-out"></i>
+
+Logout
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="main">
+
+
+
+<h2>
+
+Admin Dashboard
+
+</h2>
+
+
+<p class="text-muted">
+
+Loan management overview
+
+</p>
+
+
+
+
+
+
+<div class="row g-4">
+
+
+
+<div class="col-md-3">
+
+
+<div class="stat-card blue">
+
+
+<h6>
+
+Registered Clients
+
+</h6>
+
+
+<h2 id="totalClients">
+
+0
+
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="stat-card green">
+
+
+<h6>
+
+Active Loans
+
+</h6>
+
+
+<h2 id="activeLoans">
+
+0
+
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="stat-card orange">
+
+
+<h6>
+
+Pending Loans
+
+</h6>
+
+
+<h2 id="pendingLoans">
+
+0
+
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="stat-card red">
+
+
+<h6>
+
+Late Loans
+
+</h6>
+
+
+<h2 id="lateLoans">
+
+0
+
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="box">
+
+
+<h4>
+
+Performance Statistics
+
+</h4>
+
+
+<hr>
+
+
+<div class="row text-center">
+
+
+<div class="col">
+
+<h6>
+
+Total Issued
+
+</h6>
+
+<h4 id="totalIssued">
+
+KES 0
+
+</h4>
+
+</div>
+
+
+
+<div class="col">
+
+<h6>
+
+Remaining Principal
+
+</h6>
+
+
+<h4 id="remaining">
+
+KES 0
+
+</h4>
+
+
+</div>
+
+
+
+<div class="col">
+
+<h6>
+
+Interest Collected
+
+</h6>
+
+
+<h4>
+
+KES 0
+
+</h4>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="box" id="applications">
+
+
+<h4>
+
+Pending Loan Applications
+
+</h4>
+
+
+<hr>
+
+
+
+<table class="table">
+
+
+<thead>
+
+<tr>
+
+<th>Client</th>
+
+<th>Amount</th>
+
+<th>Interest</th>
+
+<th>Reason</th>
+
+<th>Action</th>
+
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="loanTable">
+
+
+<tr>
+
+<td colspan="5">
+
+No applications
+
+</td>
+
+
+</tr>
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="box" id="clients">
+
+
+<h4>
+
+Registered Clients
+
+</h4>
+
+
+<hr>
+
+
+
+<table class="table">
+
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Phone</th>
+
+<th>ID</th>
+
+<th>Occupation</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="clientTable">
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+
 <script>
 
 
-// Load registered client
 
-let clientData = localStorage.getItem("clientData");
-
-
-let client = null;
+// Require admin login
 
 
-if(clientData){
+if(localStorage.getItem("adminLoggedIn")!=="true"){
 
-client = JSON.parse(clientData);
+
+window.location.href="admin-login.html";
+
+
+}
+
+
+
+
+
+
+
+let client =
+JSON.parse(localStorage.getItem("clientData"));
+
+
+
+
+
+if(client){
+
 
 
 document.getElementById("totalClients").innerHTML="1";
 
 
 
-document.getElementById("clientList").innerHTML=`
+document.getElementById("clientTable").innerHTML=`
 
 <tr>
 
@@ -34,6 +641,8 @@ document.getElementById("clientList").innerHTML=`
 
 `;
 
+
+
 }
 
 
@@ -42,10 +651,12 @@ document.getElementById("clientList").innerHTML=`
 
 
 
-// Load pending loan application
 
 
-let application = localStorage.getItem("loanApplication");
+let application =
+localStorage.getItem("loanApplication");
+
+
 
 
 
@@ -53,13 +664,8 @@ if(application){
 
 
 
-let loan = JSON.parse(application);
-
-
-
-
-
-if(loan.status==="PENDING"){
+let loan =
+JSON.parse(application);
 
 
 
@@ -68,19 +674,15 @@ document.getElementById("pendingLoans").innerHTML="1";
 
 
 
-
-document.getElementById("loanApplications").innerHTML=`
-
+document.getElementById("loanTable").innerHTML=`
 
 <tr>
 
-
 <td>
 
-${client ? client.fullname : ""}
+${client.fullname}
 
 </td>
-
 
 
 <td>
@@ -90,13 +692,11 @@ KES ${loan.amount}
 </td>
 
 
-
 <td>
 
 KES ${loan.interest}
 
 </td>
-
 
 
 <td>
@@ -106,11 +706,10 @@ ${loan.reason}
 </td>
 
 
-
 <td>
 
 
-<button 
+<button
 
 onclick="approveLoan()"
 
@@ -121,8 +720,7 @@ Approve
 </button>
 
 
-
-<button 
+<button
 
 onclick="rejectLoan()"
 
@@ -136,9 +734,7 @@ Reject
 </td>
 
 
-
 </tr>
-
 
 `;
 
@@ -147,133 +743,84 @@ Reject
 }
 
 
-}
 
 
 
 
 
 
-
-
-// APPROVE LOAN
 
 
 function approveLoan(){
 
 
 
-let loanApplication = JSON.parse(
-
-localStorage.getItem("loanApplication")
-
-);
+let loan =
+JSON.parse(localStorage.getItem("loanApplication"));
 
 
 
-
-let today = new Date();
+let date =
+new Date().toLocaleDateString();
 
 
 
 
-let approvedLoan = {
+let approved={
 
 
 
-amount:Number(loanApplication.amount),
+amount:Number(loan.amount),
 
 
-
-originalPrincipal:Number(loanApplication.amount),
-
+originalPrincipal:Number(loan.amount),
 
 
-remainingPrincipal:Number(loanApplication.amount),
-
+remainingPrincipal:Number(loan.amount),
 
 
 principalPaid:0,
 
 
-
-interestRate:20,
-
-
-
 monthlyInterest:
 
-Number(loanApplication.amount) * 0.20,
+Number(loan.amount)*0.20,
 
 
-
-reason:
-
-loanApplication.reason,
-
+interestRate:20,
 
 
 status:"ACTIVE",
 
 
-
-loanTakenDate:
-
-today.toLocaleDateString(),
+loanTakenDate:date,
 
 
-
-dueDate:
-
-"Manual Interest Payment",
-
-
+dueDate:"Manual Interest Payment",
 
 
 transactions:[
 
-
-
 {
 
+date:date,
 
-date:
+description:"Loan Approved",
 
-today.toLocaleDateString(),
+amount:Number(loan.amount),
 
+principalPaid:0,
 
+interestPaid:0,
 
-description:
-
-"Loan Approved",
-
-
-
-amount:
-
-Number(loanApplication.amount),
-
-
-
-status:
-
-"Approved"
-
-
+remaining:Number(loan.amount)
 
 }
-
-
 
 ]
 
 
-
 };
-
-
-
-
 
 
 
@@ -282,11 +829,9 @@ localStorage.setItem(
 
 "clientLoan",
 
-JSON.stringify(approvedLoan)
+JSON.stringify(approved)
 
 );
-
-
 
 
 
@@ -300,16 +845,7 @@ localStorage.removeItem(
 
 
 
-
-
-alert(
-
-"Loan approved successfully"
-
-);
-
-
-
+alert("Loan approved successfully");
 
 
 location.reload();
@@ -323,51 +859,40 @@ location.reload();
 
 
 
-
-
-
-// REJECT LOAN
 
 
 function rejectLoan(){
 
 
 
-let loanApplication = JSON.parse(
-
-localStorage.getItem("loanApplication")
-
-);
+let loan =
+JSON.parse(localStorage.getItem("loanApplication"));
 
 
 
-
-loanApplication.status="REJECTED";
-
-
+loan.status="REJECTED";
 
 
 
 localStorage.setItem(
 
-"loanApplication",
+"clientLoan",
 
-JSON.stringify(loanApplication)
-
-);
-
-
-
-
-
-alert(
-
-"Loan application rejected"
+JSON.stringify(loan)
 
 );
 
 
 
+localStorage.removeItem(
+
+"loanApplication"
+
+);
+
+
+
+alert("Loan rejected");
 
 
 location.reload();
@@ -382,4 +907,48 @@ location.reload();
 
 
 
+let activeLoan =
+localStorage.getItem("clientLoan");
+
+
+
+if(activeLoan){
+
+
+
+let loan =
+JSON.parse(activeLoan);
+
+
+
+if(loan.status==="ACTIVE"){
+
+
+document.getElementById("activeLoans").innerHTML="1";
+
+
+document.getElementById("totalIssued").innerHTML=
+
+"KES "+loan.amount;
+
+
+document.getElementById("remaining").innerHTML=
+
+"KES "+loan.remainingPrincipal;
+
+
+
+}
+
+
+}
+
+
+
 </script>
+
+
+
+</body>
+
+</html>

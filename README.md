@@ -1,1 +1,1 @@
-# Bejaacredit
+# Bejja Loans

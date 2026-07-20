@@ -29,9 +29,7 @@ background:#f4f7fb;
 }
 
 
-
 /* Sidebar */
-
 
 .sidebar{
 
@@ -50,13 +48,11 @@ padding:25px;
 }
 
 
-
 .sidebar h3{
 
 font-weight:700;
 
 }
-
 
 
 .sidebar a{
@@ -76,14 +72,11 @@ border-radius:10px;
 }
 
 
-
 .sidebar a:hover{
 
 background:rgba(255,255,255,.2);
 
 }
-
-
 
 
 
@@ -97,7 +90,6 @@ margin-left:260px;
 padding:30px;
 
 }
-
 
 
 
@@ -118,8 +110,6 @@ box-shadow:0 10px 25px rgba(0,0,0,.08);
 
 
 .stat-card{
-
-border:none;
 
 border-radius:18px;
 
@@ -173,8 +163,6 @@ background:white;
 
 border-radius:15px;
 
-overflow:hidden;
-
 }
 
 
@@ -186,13 +174,12 @@ overflow:hidden;
 </head>
 
 
-
 <body>
 
 
 
 
-<!-- Sidebar -->
+<!-- SIDEBAR -->
 
 
 <div class="sidebar">
@@ -231,6 +218,7 @@ Apply Loan
 
 
 
+
 <a href="my-loan.html">
 
 <i class="fa fa-file-invoice-dollar"></i>
@@ -242,11 +230,11 @@ My Loan
 
 
 
-<a href="repayments.html">
+<a href="transaction-history.html">
 
-<i class="fa fa-credit-card"></i>
+<i class="fa fa-clock"></i>
 
-Repayments
+Transaction History
 
 </a>
 
@@ -260,6 +248,7 @@ Repayments
 Profile
 
 </a>
+
 
 
 
@@ -279,10 +268,16 @@ Logout
 
 
 
-<!-- Main Content -->
+
+
+
+<!-- MAIN -->
 
 
 <div class="main">
+
+
+
 
 
 <div class="top-card mb-4">
@@ -297,7 +292,7 @@ Welcome, Client 👋
 
 <p class="text-muted">
 
-Manage your loans and repayments from your dashboard.
+Manage your loans and transactions from your dashboard.
 
 </p>
 
@@ -309,8 +304,14 @@ Manage your loans and repayments from your dashboard.
 
 
 
+
 <div class="row g-4">
 
+
+
+
+
+<!-- ACTIVE LOAN -->
 
 
 <div class="col-md-4">
@@ -326,16 +327,16 @@ Active Loan
 </h5>
 
 
-<h2>
+<h2 id="loanAmount">
 
-KES 50,000
+No Active Loan
 
 </h2>
 
 
-<p>
+<p id="loanStatus">
 
-Approved
+No approved loan
 
 </p>
 
@@ -347,6 +348,11 @@ Approved
 
 
 
+
+
+
+
+<!-- REMAINING PRINCIPAL -->
 
 
 <div class="col-md-4">
@@ -357,21 +363,21 @@ Approved
 
 <h5>
 
-Remaining Balance
+Remaining Principal
 
 </h5>
 
 
-<h2>
+<h2 id="remainingBalance">
 
-KES 32,000
+KES 0
 
 </h2>
 
 
 <p>
 
-To Repay
+Outstanding balance
 
 </p>
 
@@ -383,6 +389,11 @@ To Repay
 
 
 
+
+
+
+
+<!-- INTEREST -->
 
 
 <div class="col-md-4">
@@ -393,21 +404,21 @@ To Repay
 
 <h5>
 
-Next Payment
+Monthly Interest
 
 </h5>
 
 
-<h2>
+<h2 id="monthlyInterest">
 
-KES 5,000
+KES 0
 
 </h2>
 
 
-<p>
+<p id="interestStatus">
 
-Due: 30 July 2026
+No active loan
 
 </p>
 
@@ -419,7 +430,12 @@ Due: 30 July 2026
 
 
 
+
+
+
 </div>
+
+
 
 
 
@@ -432,9 +448,10 @@ Due: 30 July 2026
 
 <h4>
 
-Loan Repayment Progress
+Loan Progress
 
 </h4>
+
 
 
 <div class="progress mt-3">
@@ -442,19 +459,27 @@ Loan Repayment Progress
 
 <div 
 
+id="loanProgress"
+
 class="progress-bar bg-success"
 
-style="width:40%">
+style="width:0%">
 
-40%
+
+0%
+
+
+</div>
+
+
 
 </div>
 
 
+
 </div>
 
 
-</div>
 
 
 
@@ -463,6 +488,7 @@ style="width:40%">
 
 
 <div class="top-card mt-5">
+
 
 
 <div class="d-flex justify-content-between">
@@ -475,19 +501,28 @@ Recent Transactions
 </h4>
 
 
-<a href="apply-loan.html" class="btn btn-success">
+
+<a href="apply-loan.html"
+
+class="btn btn-success">
 
 
 Apply New Loan
 
+
 </a>
+
 
 
 </div>
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -499,6 +534,7 @@ Apply New Loan
 
 <tr>
 
+
 <th>Date</th>
 
 <th>Description</th>
@@ -507,6 +543,7 @@ Apply New Loan
 
 <th>Status</th>
 
+
 </tr>
 
 
@@ -514,48 +551,25 @@ Apply New Loan
 
 
 
-<tbody>
 
 
-<tr>
-
-<td>20 July 2026</td>
-
-<td>Loan Payment</td>
-
-<td>KES 5,000</td>
-
-<td>
-
-<span class="badge bg-success">
-
-Completed
-
-</span>
-
-</td>
-
-</tr>
+<tbody id="transactionList">
 
 
 
 <tr>
 
-<td>01 July 2026</td>
 
-<td>Loan Approval</td>
+<td colspan="4"
 
-<td>KES 50,000</td>
+class="text-center">
 
-<td>
 
-<span class="badge bg-primary">
+No transactions available
 
-Approved
-
-</span>
 
 </td>
+
 
 </tr>
 
@@ -564,18 +578,176 @@ Approved
 </tbody>
 
 
+
 </table>
 
 
+
+
 </div>
 
 
 
+
+
+
 </div>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+let loanData = localStorage.getItem("clientLoan");
+
+
+
+
+
+if(loanData){
+
+
+
+let loan = JSON.parse(loanData);
+
+
+
+
+
+document.getElementById("loanAmount").innerHTML =
+
+"KES " + loan.amount;
+
+
+
+
+document.getElementById("loanStatus").innerHTML =
+
+loan.status;
+
+
+
+
+
+document.getElementById("remainingBalance").innerHTML =
+
+"KES " + loan.remaining;
+
+
+
+
+
+document.getElementById("monthlyInterest").innerHTML =
+
+"KES " + loan.interest;
+
+
+
+
+
+document.getElementById("interestStatus").innerHTML =
+
+"Interest payment";
+
+
+
+
+
+let progress = loan.paid / loan.amount * 100;
+
+
+
+
+document.getElementById("loanProgress").style.width =
+
+progress+"%";
+
+
+
+
+
+document.getElementById("loanProgress").innerHTML =
+
+Math.round(progress)+"%";
+
+
+
+
+
+
+if(loan.transactions){
+
+
+
+let rows="";
+
+
+
+loan.transactions.forEach(function(t){
+
+
+
+rows += `
+
+<tr>
+
+<td>${t.date}</td>
+
+<td>${t.description}</td>
+
+<td>KES ${t.amount}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+${t.status}
+
+</span>
+
+</td>
+
+</tr>
+
+
+`;
+
+
+
+});
+
+
+
+
+document.getElementById("transactionList").innerHTML = rows;
+
+
+
+}
+
+
+
+
+}
+
+
+
+</script>
+
+
+
 
 
 
 </body>
-
 
 </html>

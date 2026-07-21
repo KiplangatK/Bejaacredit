@@ -17,6 +17,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 
 
+
 <style>
 
 
@@ -64,13 +65,13 @@ font-weight:700;
 
 display:block;
 
-padding:12px;
-
-margin:8px 0;
-
 color:white;
 
 text-decoration:none;
+
+padding:12px;
+
+margin:6px 0;
 
 border-radius:10px;
 
@@ -87,7 +88,6 @@ background:rgba(255,255,255,.2);
 
 
 
-
 .main{
 
 margin-left:260px;
@@ -99,57 +99,33 @@ padding:30px;
 
 
 
-
-.profile-img{
-
-width:80px;
-
-height:80px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:3px solid white;
-
-box-shadow:0 5px 15px rgba(0,0,0,.2);
-
-}
-
-
-
-
-.card-box{
-
-padding:25px;
+.cardx{
 
 border-radius:18px;
 
 color:white;
 
-box-shadow:0 10px 20px rgba(0,0,0,.15);
+padding:22px;
 
 }
 
 
 
-.blue{
+.b{
 
 background:#0F4C81;
 
 }
 
 
-
-.green{
+.g{
 
 background:#198754;
 
 }
 
 
-
-.orange{
+.o{
 
 background:#f59e0b;
 
@@ -162,13 +138,27 @@ background:#f59e0b;
 
 background:white;
 
-padding:25px;
-
 border-radius:18px;
 
-box-shadow:0 8px 20px rgba(0,0,0,.08);
+padding:20px;
 
-margin-top:25px;
+box-shadow:0 8px 18px rgba(0,0,0,.08);
+
+}
+
+
+
+.profile-img{
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:3px solid #2563EB;
 
 }
 
@@ -180,10 +170,11 @@ margin-top:25px;
 </head>
 
 
-
 <body>
 
 
+
+<!-- SCRIPTS -->
 
 <script src="../assets/js/database.js"></script>
 
@@ -192,6 +183,26 @@ margin-top:25px;
 
 
 
+
+<script>
+
+
+if(!AUTH.currentClient()){
+
+window.location.href="client-portal.html";
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+<!-- SIDEBAR -->
 
 
 <div class="sidebar">
@@ -209,7 +220,6 @@ Bejja Credit
 <hr>
 
 
-
 <a href="client-dashboard.html">
 
 <i class="fa fa-home"></i>
@@ -220,15 +230,13 @@ Dashboard
 
 
 
-
-<a href="loan-application.html">
+<a href="apply-loan.html">
 
 <i class="fa fa-money-bill"></i>
 
 Apply Loan
 
 </a>
-
 
 
 
@@ -242,7 +250,6 @@ My Loan
 
 
 
-
 <a href="profile.html">
 
 <i class="fa fa-user"></i>
@@ -250,7 +257,6 @@ My Loan
 Profile
 
 </a>
-
 
 
 
@@ -274,9 +280,9 @@ Logout
 
 
 
+<!-- MAIN -->
+
 <div class="main">
-
-
 
 
 
@@ -293,7 +299,6 @@ src="">
 
 <div>
 
-
 <h2 id="welcome">
 
 Welcome
@@ -303,7 +308,7 @@ Welcome
 
 <p class="text-muted">
 
-Manage your Bejja Loan Credit account
+Manage your loans from your dashboard.
 
 </p>
 
@@ -319,9 +324,7 @@ Manage your Bejja Loan Credit account
 
 
 
-
-
-<!-- NO LOAN SECTION -->
+<!-- NO LOAN -->
 
 
 <div id="noLoan"
@@ -329,7 +332,6 @@ Manage your Bejja Loan Credit account
 class="panel"
 
 style="display:none;">
-
 
 
 <h4>
@@ -347,17 +349,15 @@ You don't have an approved loan yet.
 
 
 
-<a href="loan-application.html"
+<a href="apply-loan.html"
 
 class="btn btn-success">
 
 
-<i class="fa fa-money-bill"></i>
-
-Apply Loan
-
+Apply For Loan
 
 </a>
+
 
 
 </div>
@@ -369,8 +369,7 @@ Apply Loan
 
 
 
-
-<!-- LOAN SECTION -->
+<!-- LOAN AREA -->
 
 
 <div id="loanArea"
@@ -379,18 +378,14 @@ style="display:none;">
 
 
 
-
-
 <div class="row g-3">
-
-
 
 
 
 <div class="col-md-4">
 
 
-<div class="card-box blue">
+<div class="cardx b">
 
 
 <small>
@@ -400,18 +395,13 @@ Active Loan Amount
 </small>
 
 
-<h3 id="loanAmount">
-
-KES 0
-
-</h3>
+<h3 id="loanAmount"></h3>
 
 
 </div>
 
 
 </div>
-
 
 
 
@@ -421,29 +411,23 @@ KES 0
 <div class="col-md-4">
 
 
-<div class="card-box green">
+<div class="cardx g">
 
 
 <small>
 
-Remaining Balance
+Remaining Principal
 
 </small>
 
 
-<h3 id="remaining">
-
-KES 0
-
-</h3>
+<h3 id="remaining"></h3>
 
 
 </div>
 
 
 </div>
-
-
 
 
 
@@ -453,30 +437,23 @@ KES 0
 <div class="col-md-4">
 
 
-<div class="card-box orange">
+<div class="cardx o">
 
 
 <small>
 
-Monthly Interest
+Interest
 
 </small>
 
 
-<h3 id="interest">
-
-KES 0
-
-</h3>
+<h3 id="interest"></h3>
 
 
 </div>
 
 
 </div>
-
-
-
 
 
 
@@ -488,7 +465,8 @@ KES 0
 
 
 
-<div class="panel">
+
+<div class="panel mt-4">
 
 
 <h4>
@@ -502,12 +480,11 @@ Loan Progress
 <div class="progress">
 
 
-<div id="progressBar"
+<div id="bar"
 
 class="progress-bar"
 
-style="width:0%">
-
+role="progressbar">
 
 0%
 
@@ -517,7 +494,65 @@ style="width:0%">
 </div>
 
 
+
 </div>
+
+
+
+
+
+
+
+
+
+<div class="panel mt-4">
+
+
+<h4>
+
+Recent Transactions
+
+</h4>
+
+
+
+<table class="table">
+
+
+<thead>
+
+
+<tr>
+
+<th>Date</th>
+
+<th>Description</th>
+
+<th>Amount</th>
+
+<th>Status</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="tx">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
 
 
 
@@ -543,26 +578,18 @@ style="width:0%">
 <script>
 
 
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+const c=AUTH.currentClient();
 
 
 
-
-
-const client = AUTH.currentClient();
-
-
-
-
-
-if(!client){
-
+if(!c){
 
 window.location.href="client-portal.html";
 
-
 return;
-
 
 }
 
@@ -570,36 +597,23 @@ return;
 
 
 
-
-
-
-// DISPLAY CLIENT NAME
+// CLIENT INFO
 
 
 document.getElementById("welcome").innerHTML=
 
-"Welcome, "+client.fullname+" 👋";
+"Welcome, "+c.fullname+" 👋";
 
 
 
 
-
-
-
-
-// PROFILE PHOTO
-
-
-if(client.profilePhoto){
-
+if(c.profilePhoto){
 
 document.getElementById("profileImage").src=
 
-client.profilePhoto;
-
+c.profilePhoto;
 
 }
-
 
 
 
@@ -610,9 +624,7 @@ client.profilePhoto;
 // GET LOAN
 
 
-const loan = DB.getLoanByClient(client.id);
-
-
+const loan=DB.getLoanByClient(c.id);
 
 
 
@@ -633,8 +645,6 @@ return;
 
 
 
-
-
 document.getElementById("loanArea").style.display="block";
 
 
@@ -642,8 +652,7 @@ document.getElementById("loanArea").style.display="block";
 
 
 
-
-const amount = Number(
+const op=Number(
 
 loan.originalPrincipal ||
 
@@ -655,22 +664,17 @@ loan.amount ||
 
 
 
+const rp=Number(
 
+loan.remainingPrincipal ??
 
-const remaining = Number(
-
-loan.remainingPrincipal ||
-
-amount
+op
 
 );
 
 
 
-
-
-
-const rate = Number(
+const rate=Number(
 
 loan.interestRate ||
 
@@ -684,10 +688,20 @@ loan.interestRate ||
 
 
 
-const monthlyInterest =
+const fmt=value=>{
 
-remaining * rate / 100;
 
+if(DB.formatMoney){
+
+return DB.formatMoney(value);
+
+}
+
+
+return "KES "+Number(value).toLocaleString();
+
+
+};
 
 
 
@@ -696,7 +710,7 @@ remaining * rate / 100;
 
 document.getElementById("loanAmount").innerHTML=
 
-"KES "+amount.toLocaleString();
+fmt(op);
 
 
 
@@ -704,7 +718,7 @@ document.getElementById("loanAmount").innerHTML=
 
 document.getElementById("remaining").innerHTML=
 
-"KES "+remaining.toLocaleString();
+fmt(rp);
 
 
 
@@ -712,7 +726,7 @@ document.getElementById("remaining").innerHTML=
 
 document.getElementById("interest").innerHTML=
 
-"KES "+monthlyInterest.toLocaleString();
+fmt(rp*rate/100);
 
 
 
@@ -720,42 +734,120 @@ document.getElementById("interest").innerHTML=
 
 
 
+// PROGRESS
 
 
-// LOAN PROGRESS
+const pct=op?
 
-
-let paid = amount - remaining;
-
-
-let progress = amount ?
-
-Math.round((paid/amount)*100)
+Math.round(((op-rp)/op)*100)
 
 :0;
 
 
 
 
+document.getElementById("bar").style.width=
 
-document.getElementById("progressBar").style.width=
-
-progress+"%";
-
+pct+"%";
 
 
-document.getElementById("progressBar").innerHTML=
+document.getElementById("bar").innerHTML=
 
-progress+"%";
+pct+"%";
 
 
 
+
+
+
+
+
+
+// PAYMENTS
+
+
+const pays=
+
+DB.getLoanPayments ?
+
+DB.getLoanPayments(loan.id)
+
+:[];
+
+
+
+
+
+let tx=document.getElementById("tx");
+
+
+tx.innerHTML="";
+
+
+
+
+pays.slice(-5).reverse().forEach(p=>{
+
+
+tx.innerHTML+=`
+
+<tr>
+
+<td>${p.date||"-"}</td>
+
+<td>${p.description||"Payment"}</td>
+
+<td>${fmt(p.totalPaid||0)}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Completed
+
+</span>
+
+</td>
+
+</tr>
+
+
+`;
+
+
+});
+
+
+
+
+
+
+if(tx.innerHTML===""){
+
+
+tx.innerHTML=`
+
+<tr>
+
+<td colspan="4"
+
+class="text-center">
+
+No transactions yet.
+
+</td>
+
+</tr>
+
+
+`;
+
+}
 
 
 
 
 });
-
 
 
 
@@ -773,7 +865,6 @@ window.location.href="client-portal.html";
 
 
 }
-
 
 
 </script>

@@ -1,7 +1,7 @@
 /*=========================================================
     BEJJA LOAN CREDIT
     AUTHENTICATION ENGINE
-    Version: 1.0
+    Version: 2.0
 =========================================================*/
 
 (function () {
@@ -9,7 +9,7 @@
     "use strict";
 
     /*==========================================
-        SESSION STORAGE KEYS
+        SESSION KEYS
     ==========================================*/
 
     const CLIENT_SESSION = "loggedInClient";
@@ -21,7 +21,7 @@
 
     function registerClient(client) {
 
-        // Phone already exists
+        // Check duplicate phone
         if (DB.getClientByPhone(client.phone)) {
 
             return {
@@ -31,11 +31,13 @@
 
         }
 
-        DB.addClient(client);
+        // Save client
+        const savedClient = DB.addClient(client);
 
         return {
             success: true,
-            message: "Account created successfully."
+            message: "Account created successfully.",
+            client: savedClient
         };
 
     }
@@ -82,6 +84,7 @@
 
         return {
             success: true,
+            message: "Login successful.",
             client: client
         };
 
@@ -95,7 +98,7 @@
 
         sessionStorage.removeItem(CLIENT_SESSION);
 
-        window.location.href = "client-login.html";
+        window.location.href = "client-portal.html";
 
     }
 
@@ -108,9 +111,11 @@
         const staff = DB.getStaff();
 
         const admin = staff.find(user =>
+
             user.username === username &&
             user.password === password &&
             user.active === true
+
         );
 
         if (!admin) {
@@ -129,6 +134,7 @@
 
         return {
             success: true,
+            message: "Login successful.",
             admin: admin
         };
 
@@ -147,7 +153,7 @@
     }
 
     /*==========================================
-        CURRENT USER
+        CURRENT CLIENT
     ==========================================*/
 
     function currentClient() {
@@ -165,6 +171,10 @@
 
     }
 
+    /*==========================================
+        CURRENT ADMIN
+    ==========================================*/
+
     function currentAdmin() {
 
         const admin =
@@ -181,18 +191,22 @@
     }
 
     /*==========================================
-        PAGE PROTECTION
+        REQUIRE CLIENT LOGIN
     ==========================================*/
 
     function requireClient() {
 
         if (!currentClient()) {
 
-            window.location.href = "client-login.html";
+            window.location.href = "client-portal.html";
 
         }
 
     }
+
+    /*==========================================
+        REQUIRE ADMIN LOGIN
+    ==========================================*/
 
     function requireAdmin() {
 
@@ -205,26 +219,49 @@
     }
 
     /*==========================================
-        UPDATE SESSION
+        REFRESH CLIENT SESSION
     ==========================================*/
 
     function refreshClientSession() {
 
         const client = currentClient();
 
-        if (!client) return;
+        if (!client) {
 
-        const latest =
-            DB.getClientById(client.id);
-
-        if (latest) {
-
-            sessionStorage.setItem(
-                CLIENT_SESSION,
-                JSON.stringify(latest)
-            );
+            return;
 
         }
+
+        const latest = DB.getClientById(client.id);
+
+        if (!latest) {
+
+            sessionStorage.removeItem(CLIENT_SESSION);
+
+            return;
+
+        }
+
+        sessionStorage.setItem(
+            CLIENT_SESSION,
+            JSON.stringify(latest)
+        );
+
+    }
+
+    /*==========================================
+        CHECK LOGIN STATUS
+    ==========================================*/
+
+    function isClientLoggedIn() {
+
+        return currentClient() !== null;
+
+    }
+
+    function isAdminLoggedIn() {
+
+        return currentAdmin() !== null;
 
     }
 
@@ -252,7 +289,11 @@
 
         requireAdmin,
 
-        refreshClientSession
+        refreshClientSession,
+
+        isClientLoggedIn,
+
+        isAdminLoggedIn
 
     };
 

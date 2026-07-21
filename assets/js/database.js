@@ -1,486 +1,704 @@
 /*=========================================================
     BEJJA LOAN CREDIT
     DATABASE ENGINE (database.js)
-    Version: 1.0
+    Version: 1.1
+    Fixed Client ID Matching
 =========================================================*/
 
 (function () {
 
-    "use strict";
+"use strict";
 
-    /*=========================================================
-        INITIALIZE DATABASE
-    =========================================================*/
 
-    function initializeDatabase() {
+/*=========================================================
+    INITIALIZE DATABASE
+=========================================================*/
 
-        if (!localStorage.getItem("clients")) {
-            localStorage.setItem("clients", JSON.stringify([]));
-        }
 
-        if (!localStorage.getItem("loanApplications")) {
-            localStorage.setItem("loanApplications", JSON.stringify([]));
-        }
+function initializeDatabase(){
 
-        if (!localStorage.getItem("loans")) {
-            localStorage.setItem("loans", JSON.stringify([]));
-        }
 
-        if (!localStorage.getItem("payments")) {
-            localStorage.setItem("payments", JSON.stringify([]));
-        }
+    if(!localStorage.getItem("clients")){
 
-        if (!localStorage.getItem("staff")) {
+        localStorage.setItem(
+            "clients",
+            JSON.stringify([])
+        );
 
-            localStorage.setItem("staff", JSON.stringify([
+    }
+
+
+    if(!localStorage.getItem("loanApplications")){
+
+        localStorage.setItem(
+            "loanApplications",
+            JSON.stringify([])
+        );
+
+    }
+
+
+    if(!localStorage.getItem("loans")){
+
+        localStorage.setItem(
+            "loans",
+            JSON.stringify([])
+        );
+
+    }
+
+
+    if(!localStorage.getItem("payments")){
+
+        localStorage.setItem(
+            "payments",
+            JSON.stringify([])
+        );
+
+    }
+
+
+    if(!localStorage.getItem("staff")){
+
+
+        localStorage.setItem(
+            "staff",
+            JSON.stringify([
+
                 {
-                    id: 1,
-                    username: "admin",
-                    password: "admin123",
-                    role: "Administrator",
-                    active: true
+                    id:1,
+                    username:"admin",
+                    password:"admin123",
+                    role:"Administrator",
+                    active:true
                 }
-            ]));
 
-        }
+            ])
+
+        );
+
 
     }
 
-    initializeDatabase();
 
+}
+
+
+initializeDatabase();
+
+
+
+
+/*=========================================================
+    STORAGE FUNCTIONS
+=========================================================*/
+
+
+function read(key){
+
+    return JSON.parse(
+        localStorage.getItem(key)
+    ) || [];
+
+}
+
+
+
+function write(key,value){
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(value)
+    );
+
+}
+
+
+
+
+/*=========================================================
+    CLIENTS
+=========================================================*/
+
+
+function getClients(){
+
+    return read("clients");
+
+}
+
+
+
+function saveClients(data){
+
+    write(
+        "clients",
+        data
+    );
+
+}
+
+
+
+
+function addClient(client){
+
+
+    const clients=getClients();
+
+
+    client.id=nextId(clients);
+
+
+    client.createdAt=today();
+
+
+    client.status="ACTIVE";
+
+
+    clients.push(client);
+
+
+    saveClients(clients);
+
+
+    return client;
+
+
+}
+
+
+
+
+function getClientByPhone(phone){
+
+
+    return getClients().find(
+        c => c.phone === phone
+    );
+
+
+}
+
+
+
+
+// FIXED ID SEARCH
+
+function getClientById(id){
+
+
+    return getClients().find(
+
+        c => String(c.id) === String(id)
+
+    );
+
+
+}
+
+
+
+
+function updateClient(updatedClient){
+
+
+    let clients=getClients();
+
+
+
+    clients=clients.map(c =>
+
+
+        String(c.id) === String(updatedClient.id)
+
+        ?
+
+        updatedClient
+
+        :
+
+        c
+
+
+    );
+
+
+
+    saveClients(clients);
+
+
+}
+
+
+
+
+
+/*=========================================================
+    LOAN APPLICATIONS
+=========================================================*/
+
+
+function getApplications(){
+
+    return read("loanApplications");
+
+}
+
+
+
+function saveApplications(data){
+
+    write(
+        "loanApplications",
+        data
+    );
+
+}
+
+
+
+
+function addApplication(application){
+
+
+    const applications=getApplications();
+
+
+    application.id=nextId(applications);
+
+
+    application.applicationDate=today();
+
+
+    application.status="PENDING";
+
+
+    applications.push(application);
+
+
+    saveApplications(applications);
+
+
+    return application;
+
+
+}
+
+
+
+
+function getApplication(id){
+
+
+    return getApplications().find(
+
+        a => String(a.id) === String(id)
+
+    );
+
+
+}
+
+
+
+
+function updateApplication(updated){
+
+
+    let apps=getApplications();
+
+
+
+    apps=apps.map(a =>
+
+
+        String(a.id) === String(updated.id)
+
+        ?
+
+        updated
+
+        :
+
+        a
+
+
+    );
+
+
+
+    saveApplications(apps);
+
+
+}
+
+
+
+
+function deleteApplication(id){
+
+
+    const apps=getApplications().filter(
+
+        a => String(a.id) !== String(id)
+
+    );
+
+
+    saveApplications(apps);
+
+
+}
     /*=========================================================
-        GENERIC STORAGE FUNCTIONS
-    =========================================================*/
+    BEJJA LOAN CREDIT
+    DATABASE ENGINE (database.js)
+    Version: 1.1
+    Fixed Client ID Matching
+=========================================================*/
 
-    function read(key) {
+(function () {
 
-        return JSON.parse(localStorage.getItem(key)) || [];
+"use strict";
 
-    }
 
-    function write(key, value) {
+/*=========================================================
+    INITIALIZE DATABASE
+=========================================================*/
 
-        localStorage.setItem(key, JSON.stringify(value));
 
-    }
+function initializeDatabase(){
 
-    /*=========================================================
-        CLIENTS
-    =========================================================*/
 
-    function getClients() {
+    if(!localStorage.getItem("clients")){
 
-        return read("clients");
-
-    }
-
-    function saveClients(data) {
-
-        write("clients", data);
-
-    }
-
-    function addClient(client) {
-
-        const clients = getClients();
-
-        client.id = nextId(clients);
-
-        client.createdAt = today();
-
-        client.status = "ACTIVE";
-
-        clients.push(client);
-
-        saveClients(clients);
-
-        return client;
-
-    }
-
-    function getClientByPhone(phone) {
-
-        return getClients().find(c => c.phone === phone);
-
-    }
-
-    function getClientById(id) {
-
-        return getClients().find(c => c.id === id);
-
-    }
-
-    function updateClient(updatedClient) {
-
-        let clients = getClients();
-
-        clients = clients.map(c => c.id === updatedClient.id ? updatedClient : c);
-
-        saveClients(clients);
-
-    }
-
-    /*=========================================================
-        LOAN APPLICATIONS
-    =========================================================*/
-
-    function getApplications() {
-
-        return read("loanApplications");
-
-    }
-
-    function saveApplications(data) {
-
-        write("loanApplications", data);
-
-    }
-
-    function addApplication(application) {
-
-        const applications = getApplications();
-
-        application.id = nextId(applications);
-
-        application.applicationDate = today();
-
-        application.status = "PENDING";
-
-        applications.push(application);
-
-        saveApplications(applications);
-
-        return application;
-
-    }
-
-    function getApplication(id) {
-
-        return getApplications().find(a => a.id === id);
-
-    }
-
-    function updateApplication(updated) {
-
-        let apps = getApplications();
-
-        apps = apps.map(a => a.id === updated.id ? updated : a);
-
-        saveApplications(apps);
-
-    }
-
-    function deleteApplication(id) {
-
-        const apps = getApplications().filter(a => a.id !== id);
-
-        saveApplications(apps);
-
-    }
-
-    /*=========================================================
-        LOANS
-    =========================================================*/
-
-    function getLoans() {
-
-        return read("loans");
-
-    }
-
-    function saveLoans(data) {
-
-        write("loans", data);
-
-    }
-
-    function addLoan(loan) {
-
-        const loans = getLoans();
-
-        loan.id = nextId(loans);
-
-        loan.createdAt = today();
-
-        loans.push(loan);
-
-        saveLoans(loans);
-
-        return loan;
-
-    }
-
-    function getLoan(id) {
-
-        return getLoans().find(l => l.id === id);
-
-    }
-
-    function getLoanByClient(clientId) {
-
-        return getLoans().find(l =>
-            l.clientId === clientId &&
-            l.status === "ACTIVE"
+        localStorage.setItem(
+            "clients",
+            JSON.stringify([])
         );
 
     }
 
-    function updateLoan(updatedLoan) {
 
-        let loans = getLoans();
+    if(!localStorage.getItem("loanApplications")){
 
-        loans = loans.map(l =>
-            l.id === updatedLoan.id ? updatedLoan : l
+        localStorage.setItem(
+            "loanApplications",
+            JSON.stringify([])
         );
 
-        saveLoans(loans);
+    }
+
+
+    if(!localStorage.getItem("loans")){
+
+        localStorage.setItem(
+            "loans",
+            JSON.stringify([])
+        );
 
     }
 
-    /*=========================================================
-        PAYMENTS
-    =========================================================*/
 
-    function getPayments() {
+    if(!localStorage.getItem("payments")){
 
-        return read("payments");
-
-    }
-
-    function savePayments(data) {
-
-        write("payments", data);
+        localStorage.setItem(
+            "payments",
+            JSON.stringify([])
+        );
 
     }
 
-    function addPayment(payment) {
 
-        const payments = getPayments();
+    if(!localStorage.getItem("staff")){
 
-        payment.id = nextId(payments);
 
-        payment.date = today();
+        localStorage.setItem(
+            "staff",
+            JSON.stringify([
 
-        payments.push(payment);
+                {
+                    id:1,
+                    username:"admin",
+                    password:"admin123",
+                    role:"Administrator",
+                    active:true
+                }
 
-        savePayments(payments);
+            ])
 
-        return payment;
+        );
 
-    }
-
-    function getLoanPayments(loanId) {
-
-        return getPayments().filter(p => p.loanId === loanId);
-
-    }
-
-    /*=========================================================
-        STAFF
-    =========================================================*/
-
-    function getStaff() {
-
-        return read("staff");
 
     }
 
-    function saveStaff(data) {
 
-        write("staff", data);
+}
 
-    }
 
-    /*=========================================================
-        DASHBOARD STATISTICS
-    =========================================================*/
+initializeDatabase();
 
-    function totalClients() {
 
-        return getClients().length;
 
-    }
 
-    function totalApplications() {
+/*=========================================================
+    STORAGE FUNCTIONS
+=========================================================*/
 
-        return getApplications().length;
 
-    }
+function read(key){
 
-    function pendingApplications() {
+    return JSON.parse(
+        localStorage.getItem(key)
+    ) || [];
 
-        return getApplications().filter(a =>
-            a.status === "PENDING"
-        ).length;
+}
 
-    }
 
-    function approvedLoans() {
 
-        return getLoans().filter(l =>
-            l.status === "ACTIVE"
-        ).length;
+function write(key,value){
 
-    }
+    localStorage.setItem(
+        key,
+        JSON.stringify(value)
+    );
 
-    function rejectedLoans() {
+}
 
-        return getApplications().filter(a =>
-            a.status === "REJECTED"
-        ).length;
 
-    }
 
-    function totalPrincipalIssued() {
 
-        let total = 0;
+/*=========================================================
+    CLIENTS
+=========================================================*/
 
-        getLoans().forEach(l => {
 
-            total += Number(l.originalPrincipal || 0);
+function getClients(){
 
-        });
+    return read("clients");
 
-        return total;
+}
 
-    }
 
-    function outstandingPrincipal() {
 
-        let total = 0;
+function saveClients(data){
 
-        getLoans().forEach(l => {
+    write(
+        "clients",
+        data
+    );
 
-            total += Number(l.remainingPrincipal || 0);
+}
 
-        });
 
-        return total;
 
-    }
 
-    function totalInterestCollected() {
+function addClient(client){
 
-        let total = 0;
 
-        getPayments().forEach(p => {
+    const clients=getClients();
 
-            total += Number(p.interestPaid || 0);
 
-        });
+    client.id=nextId(clients);
 
-        return total;
 
-    }
+    client.createdAt=today();
 
-    function totalPrincipalCollected() {
 
-        let total = 0;
+    client.status="ACTIVE";
 
-        getPayments().forEach(p => {
 
-            total += Number(p.principalPaid || 0);
+    clients.push(client);
 
-        });
 
-        return total;
+    saveClients(clients);
 
-    }
 
-    /*=========================================================
-        HELPERS
-    =========================================================*/
+    return client;
 
-    function nextId(array) {
 
-        if (array.length === 0) {
+}
 
-            return 1;
 
-        }
 
-        return Math.max(...array.map(item => item.id)) + 1;
 
-    }
+function getClientByPhone(phone){
 
-    function today() {
 
-        return new Date().toLocaleDateString("en-KE");
+    return getClients().find(
+        c => c.phone === phone
+    );
 
-    }
 
-    function nextMonthDate() {
+}
 
-        const d = new Date();
 
-        d.setMonth(d.getMonth() + 1);
 
-        return d.toLocaleDateString("en-KE");
 
-    }
+// FIXED ID SEARCH
 
-    function formatMoney(value) {
+function getClientById(id){
 
-        return "KES " + Number(value).toLocaleString();
 
-    }
+    return getClients().find(
 
-    /*=========================================================
-        PUBLIC API
-    =========================================================*/
+        c => String(c.id) === String(id)
 
-    window.DB = {
+    );
 
-        // Clients
-        getClients,
-        saveClients,
-        addClient,
-        getClientByPhone,
-        getClientById,
-        updateClient,
 
-        // Applications
-        getApplications,
-        saveApplications,
-        addApplication,
-        getApplication,
-        updateApplication,
-        deleteApplication,
+}
 
-        // Loans
-        getLoans,
-        saveLoans,
-        addLoan,
-        getLoan,
-        getLoanByClient,
-        updateLoan,
 
-        // Payments
-        getPayments,
-        savePayments,
-        addPayment,
-        getLoanPayments,
 
-        // Staff
-        getStaff,
-        saveStaff,
 
-        // Statistics
-        totalClients,
-        totalApplications,
-        pendingApplications,
-        approvedLoans,
-        rejectedLoans,
-        totalPrincipalIssued,
-        outstandingPrincipal,
-        totalInterestCollected,
-        totalPrincipalCollected,
+function updateClient(updatedClient){
 
-        // Helpers
-        today,
-        nextMonthDate,
-        formatMoney
 
-    };
+    let clients=getClients();
 
-})();
+
+
+    clients=clients.map(c =>
+
+
+        String(c.id) === String(updatedClient.id)
+
+        ?
+
+        updatedClient
+
+        :
+
+        c
+
+
+    );
+
+
+
+    saveClients(clients);
+
+
+}
+
+
+
+
+
+/*=========================================================
+    LOAN APPLICATIONS
+=========================================================*/
+
+
+function getApplications(){
+
+    return read("loanApplications");
+
+}
+
+
+
+function saveApplications(data){
+
+    write(
+        "loanApplications",
+        data
+    );
+
+}
+
+
+
+
+function addApplication(application){
+
+
+    const applications=getApplications();
+
+
+    application.id=nextId(applications);
+
+
+    application.applicationDate=today();
+
+
+    application.status="PENDING";
+
+
+    applications.push(application);
+
+
+    saveApplications(applications);
+
+
+    return application;
+
+
+}
+
+
+
+
+function getApplication(id){
+
+
+    return getApplications().find(
+
+        a => String(a.id) === String(id)
+
+    );
+
+
+}
+
+
+
+
+function updateApplication(updated){
+
+
+    let apps=getApplications();
+
+
+
+    apps=apps.map(a =>
+
+
+        String(a.id) === String(updated.id)
+
+        ?
+
+        updated
+
+        :
+
+        a
+
+
+    );
+
+
+
+    saveApplications(apps);
+
+
+}
+
+
+
+
+function deleteApplication(id){
+
+
+    const apps=getApplications().filter(
+
+        a => String(a.id) !== String(id)
+
+    );
+
+
+    saveApplications(apps);
+
+
+}

@@ -183,10 +183,9 @@ Create New Account
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // If already logged in, go straight to dashboard
-    if (AUTH.currentClient()) {
-        window.location.href = "client-dashboard.html";
-        return;
+    // Do not auto redirect
+// User must login manually
+
     }
 
     const form = document.getElementById("loginForm");

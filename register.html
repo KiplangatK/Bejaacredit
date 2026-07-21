@@ -4,18 +4,12 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create Account | Bejja Loan Credit</title>
 
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
-
-
 
 <style>
 
@@ -23,20 +17,19 @@ body{
 
 background:linear-gradient(135deg,#0F4C81,#2563EB);
 
-font-family:'Poppins',sans-serif;
+font-family:Poppins,sans-serif;
 
 min-height:100vh;
 
-padding:40px 0;
+padding:30px;
 
 }
 
+.card{
 
+max-width:900px;
 
-.register-card,
-.success-card{
-
-width:650px;
+margin:auto;
 
 border:none;
 
@@ -46,8 +39,6 @@ box-shadow:0 20px 40px rgba(0,0,0,.25);
 
 }
 
-
-
 .logo{
 
 font-size:60px;
@@ -56,28 +47,15 @@ color:#0F4C81;
 
 }
 
+.form-control,.form-select{
 
-
-.form-control,
-.form-select{
-
-height:48px;
+height:50px;
 
 border-radius:12px;
 
 }
 
-
-
-textarea.form-control{
-
-height:100px;
-
-}
-
-
-
-.btn-register{
+.btn-success{
 
 height:50px;
 
@@ -89,67 +67,31 @@ font-weight:600;
 
 }
 
-
-
-.success-card{
+.alert{
 
 display:none;
 
 }
 
-
-
-.success-icon{
-
-font-size:80px;
-
-color:#198754;
-
-}
-
-
 </style>
 
 </head>
 
-
-
 <body>
 
-
-
-
-<div class="container d-flex justify-content-center">
-
-
-
-
-
-
-<!-- REGISTER BOX -->
-
-
-<div class="card register-card" id="registerBox">
-
+<div class="card">
 
 <div class="card-body p-5">
 
-
-
-
-
 <div class="text-center mb-4">
-
 
 <i class="fa-solid fa-building-columns logo"></i>
 
-
-<h3 class="fw-bold mt-3">
+<h2 class="fw-bold mt-3">
 
 BEJJA LOAN CREDIT
 
-</h3>
-
+</h2>
 
 <p class="text-muted">
 
@@ -157,714 +99,304 @@ Create Client Account
 
 </p>
 
-
 </div>
 
+<div class="alert alert-danger" id="errorBox"></div>
 
+<div class="alert alert-success" id="successBox"></div>
 
-
-
-
-<form id="registerForm" onsubmit="createAccount(event)">
-
-
-
-
-
-
-<h5 class="text-primary">
-
-Personal Details
-
-</h5>
-
-
-
-
-
+<form id="registerForm">
 
 <div class="row">
 
-
-
-
-
-
 <div class="col-md-6 mb-3">
 
-
-<label class="fw-semibold">
-
-Full Name
-
-</label>
-
+<label>Full Name</label>
 
 <input
-
+type="text"
+class="form-control"
 id="fullname"
+required>
 
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>National ID</label>
+
+<input
 type="text"
-
 class="form-control"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="fw-semibold">
-
-Phone Number
-
-</label>
-
-
-<input
-
-id="phone"
-
-type="tel"
-
-class="form-control"
-
-placeholder="07XXXXXXXX"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="fw-semibold">
-
-National ID Number
-
-</label>
-
-
-<input
-
 id="nationalID"
-
-type="number"
-
-class="form-control"
-
 required>
-
 
 </div>
 
-
-
-
-
-
-
 <div class="col-md-6 mb-3">
 
-
-<label class="fw-semibold">
-
-Date of Birth
-
-</label>
-
+<label>Phone Number</label>
 
 <input
-
-id="dob"
-
-type="date"
-
+type="tel"
 class="form-control"
-
+id="phone"
+placeholder="07XXXXXXXX"
 required>
-
 
 </div>
 
-
-
-
-
-
-
 <div class="col-md-6 mb-3">
 
-
-<label>
-
-Gender
-
-</label>
-
-
-<select
-
-id="gender"
-
-class="form-select"
-
-required>
-
-
-<option value="">Select Gender</option>
-
-<option>Male</option>
-
-<option>Female</option>
-
-
-</select>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label>
-
-Occupation / Business
-
-</label>
-
+<label>Email</label>
 
 <input
+type="email"
+class="form-control"
+id="email">
 
-id="occupation"
+</div>
 
+<div class="col-md-6 mb-3">
+
+<label>Occupation</label>
+
+<input
 type="text"
-
 class="form-control"
-
+id="occupation"
 required>
-
 
 </div>
 
+<div class="col-md-6 mb-3">
 
+<label>Employer</label>
 
+<input
+type="text"
+class="form-control"
+id="employer">
 
+</div>
 
+<div class="col-md-6 mb-3">
 
+<label>Monthly Income</label>
 
+<input
+type="number"
+class="form-control"
+id="income"
+required>
 
-<div class="col-md-12 mb-3">
+</div>
 
+<div class="col-md-6 mb-3">
 
-<label>
+<label>County</label>
 
-Residential Address
+<input
+type="text"
+class="form-control"
+id="county"
+required>
 
-</label>
+</div>
 
+<div class="col-12 mb-3">
+
+<label>Physical Address</label>
 
 <textarea
-
-id="address"
-
 class="form-control"
-
+id="address"
+rows="3"
 required></textarea>
 
-
 </div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<hr>
-
-
-
-
-
-
-
-
-<h5 class="text-primary">
-
-Account Security
-
-</h5>
-
-
-
-
-
-
-<div class="row">
-
-
-
-
-
 
 <div class="col-md-6 mb-3">
 
-
-<label>
-
-Password
-
-</label>
-
+<label>Password</label>
 
 <input
-
+type="password"
+class="form-control"
 id="password"
-
-type="password"
-
-class="form-control"
-
 required>
-
 
 </div>
 
+<div class="col-md-6 mb-4">
 
-
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label>
-
-Confirm Password
-
-</label>
-
+<label>Confirm Password</label>
 
 <input
-
+type="password"
+class="form-control"
 id="confirmPassword"
-
-type="password"
-
-class="form-control"
-
 required>
 
-
 </div>
 
-
-
-
-
-
 </div>
-
-
-
-
-
-
-
-
-
-<hr>
-
-
-
-
-
-
-
-
-<h5 class="text-primary">
-
-Documents
-
-</h5>
-
-
-
-
-
-
-
-<div class="mb-3">
-
-
-<label>
-
-Upload National ID Picture
-
-</label>
-
-
-<input
-
-type="file"
-
-class="form-control"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="mb-3">
-
-
-<label>
-
-Upload Passport Photo
-
-</label>
-
-
-<input
-
-type="file"
-
-class="form-control"
-
-required>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="form-check mb-4">
-
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-required>
-
-
-<label>
-
-I agree to Bejja Loan Credit terms and conditions.
-
-</label>
-
-
-</div>
-
-
-
-
-
 
 <button
+type="submit"
+class="btn btn-success w-100">
 
-class="btn btn-success w-100 btn-register"
+<i class="fa fa-user-plus"></i>
 
-type="submit">
-
-
-<i class="fa-solid fa-user-plus"></i>
-
-CREATE ACCOUNT
-
+Create Account
 
 </button>
 
-
-
-
-
-
-
 </form>
 
+<div class="text-center mt-4">
 
+Already have an account?
 
+<a href="client-portal.html">
 
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- SUCCESS MESSAGE -->
-
-
-
-<div class="card success-card" id="successBox">
-
-
-<div class="card-body p-5 text-center">
-
-
-
-<i class="fa-solid fa-circle-check success-icon"></i>
-
-
-
-
-<h2 class="fw-bold mt-4">
-
-Congratulations!
-
-</h2>
-
-
-
-
-
-<h4>
-
-Account Created Successfully
-
-</h4>
-
-
-
-
-
-<p class="text-muted">
-
-Your Bejja Loan Credit account has been created successfully.
-
-</p>
-
-
-
-
-
-
-
-<a href="client-login.html"
-
-class="btn btn-success rounded-pill px-5">
-
-
-<i class="fa-solid fa-right-to-bracket"></i>
-
-LOGIN NOW
-
+Login Here
 
 </a>
 
-
-
-
-
+</div>
 
 </div>
 
-
 </div>
 
+<script src="assets/js/database.js"></script>
+<script src="assets/js/auth.js"></script>
 
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
+<!-- PART 2 JavaScript goes here -->
 <script>
+/*====================================================
+    BEJJA LOAN CREDIT
+    REGISTER CLIENT
+=====================================================*/
 
+document.getElementById("registerForm").addEventListener("submit", function (e) {
 
-function createAccount(event){
+    e.preventDefault();
 
+    const errorBox = document.getElementById("errorBox");
+    const successBox = document.getElementById("successBox");
 
-event.preventDefault();
+    errorBox.style.display = "none";
+    successBox.style.display = "none";
 
+    // Read form values
+    const fullname = document.getElementById("fullname").value.trim();
+    const nationalID = document.getElementById("nationalID").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const occupation = document.getElementById("occupation").value.trim();
+    const employer = document.getElementById("employer").value.trim();
+    const income = document.getElementById("income").value.trim();
+    const county = document.getElementById("county").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
+    // Password check
+    if (password !== confirmPassword) {
 
+        errorBox.innerHTML = "Passwords do not match.";
 
+        errorBox.style.display = "block";
 
-let password=document.getElementById("password").value;
+        return;
 
+    }
 
-let confirmPassword=document.getElementById("confirmPassword").value;
+    // Phone format
+    if (!/^07\d{8}$/.test(phone)) {
 
+        errorBox.innerHTML = "Enter a valid phone number (07XXXXXXXX).";
 
+        errorBox.style.display = "block";
 
-if(password !== confirmPassword){
+        return;
 
+    }
 
-alert("Passwords do not match.");
+    // National ID validation
+    if (nationalID.length < 6) {
 
-return;
+        errorBox.innerHTML = "Invalid National ID.";
 
+        errorBox.style.display = "block";
 
-}
+        return;
 
+    }
 
+    // Create client object
+    const client = {
 
+        fullname: fullname,
 
+        nationalID: nationalID,
 
-let clientData = {
+        phone: phone,
 
+        email: email,
 
-fullname:
-document.getElementById("fullname").value,
+        occupation: occupation,
 
+        employer: employer,
 
-phone:
-document.getElementById("phone").value,
+        monthlyIncome: income,
 
+        county: county,
 
-nationalID:
-document.getElementById("nationalID").value,
+        address: address,
 
+        password: password
 
-dob:
-document.getElementById("dob").value,
+    };
 
+    // Register using AUTH
+    const result = AUTH.registerClient(client);
 
-gender:
-document.getElementById("gender").value,
+    if (!result.success) {
 
+        errorBox.innerHTML = result.message;
 
-occupation:
-document.getElementById("occupation").value,
+        errorBox.style.display = "block";
 
+        return;
 
-address:
-document.getElementById("address").value,
+    }
 
+    // Success
+    successBox.style.display = "block";
 
-password:
-password
+    successBox.innerHTML = `
+        <h4 class="text-success">
+            <i class="fa fa-check-circle"></i>
+            Congratulations!
+        </h4>
 
+        <p>Your account has been created successfully.</p>
 
-};
+        <a href="client-portal.html"
+           class="btn btn-success">
 
+            Login Now
 
+        </a>
+    `;
 
+    document.getElementById("registerForm").reset();
 
-
-
-
-localStorage.setItem(
-
-"clientData",
-
-JSON.stringify(clientData)
-
-);
-
-
-
-
-
-localStorage.setItem(
-
-"clientPhone",
-
-clientData.phone
-
-);
-
-
-
-localStorage.setItem(
-
-"clientPassword",
-
-clientData.password
-
-);
-
-
-
-
-
-
-
-document.getElementById("registerBox").style.display="none";
-
-
-document.getElementById("successBox").style.display="block";
-
-
-
-
-}
-
-
-
+});
 </script>
-
-
-
-
-
-
 </body>
 
 </html>

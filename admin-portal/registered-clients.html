@@ -467,28 +467,16 @@ View Details
 
 
 
-
 function viewClient(id){
 
+    localStorage.setItem(
+        "selectedClient",
+        id
+    );
 
-
-localStorage.setItem(
-
-"selectedClient",
-
-id
-
-);
-
-
-
-window.location.href =
-"client-profile.html";
-
-
+    window.location.href = "client-profile.html";
 
 }
-
 
 
 

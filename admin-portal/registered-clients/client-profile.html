@@ -16,9 +16,13 @@ Bejja Credit | Client Profile
 
 <style>
 
+
 body{
-    background:#f5f7fb;
+
+background:#f4f6f9;
+
 }
+
 
 
 .sidebar{
@@ -32,6 +36,7 @@ color:white;
 }
 
 
+
 .sidebar h3{
 
 padding:20px;
@@ -40,14 +45,16 @@ color:#28a745;
 }
 
 
+
 .sidebar a{
 
 display:block;
 padding:14px 20px;
-text-decoration:none;
 color:white;
+text-decoration:none;
 
 }
+
 
 
 .sidebar a:hover{
@@ -55,6 +62,7 @@ color:white;
 background:#0b466b;
 
 }
+
 
 
 .main{
@@ -66,19 +74,20 @@ padding:30px;
 
 
 
-.profile-card{
+.card{
 
-border-radius:15px;
 border:none;
+border-radius:15px;
+margin-bottom:20px;
 
 }
 
 
 
-.profile-img{
+.profile-photo{
 
-width:120px;
-height:120px;
+width:130px;
+height:130px;
 border-radius:50%;
 object-fit:cover;
 
@@ -86,15 +95,23 @@ object-fit:cover;
 
 
 
-.document-img{
+.document{
 
 width:100%;
-height:220px;
+height:250px;
 object-fit:cover;
 border-radius:10px;
 
 }
 
+
+
+.title{
+
+color:#062b45;
+font-weight:bold;
+
+}
 
 
 </style>
@@ -103,8 +120,8 @@ border-radius:10px;
 </head>
 
 
-
 <body>
+
 
 
 <div class="sidebar">
@@ -139,11 +156,12 @@ Loan Applications
 
 
 
+
+
 <div class="main">
 
 
-
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between align-items-center">
 
 
 <h2>
@@ -164,7 +182,13 @@ Back
 
 
 
-<div id="profileArea"></div>
+
+<div id="clientProfile">
+
+
+</div>
+
+
 
 
 
@@ -177,8 +201,8 @@ Back
 <script src="assets/js/database.js"></script>
 
 
-
 <script>
+
 
 
 let clientID =
@@ -197,8 +221,7 @@ DB.getClientById(clientID);
 
 if(!client){
 
-
-document.getElementById("profileArea").innerHTML=
+document.getElementById("clientProfile").innerHTML=
 
 `
 <div class="alert alert-danger">
@@ -209,9 +232,7 @@ Client not found
 
 `;
 
-
 return;
-
 
 }
 
@@ -228,31 +249,38 @@ client.profilePhoto
 
 
 
-document.getElementById("profileArea").innerHTML=
+
+document.getElementById("clientProfile").innerHTML=
 
 
 
 `
 
+<div class="card p-4">
 
-<div class="card profile-card p-4 mt-4">
 
-
-<div class="row">
+<div class="row align-items-center">
 
 
 <div class="col-md-3 text-center">
 
 
 <img src="${photo}"
-class="profile-img">
+class="profile-photo">
 
 
-<h4 class="mt-3">
+</div>
+
+
+
+<div class="col-md-9">
+
+
+<h2>
 
 ${client.fullname}
 
-</h4>
+</h2>
 
 
 <span class="badge bg-success">
@@ -262,6 +290,20 @@ Active Client
 </span>
 
 
+<p class="mt-3">
+
+Registered Date:
+<b>${client.date || "N/A"}</b>
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
 
 </div>
 
@@ -269,11 +311,16 @@ Active Client
 
 
 
-<div class="col-md-9">
 
 
-<h4>
+
+<div class="card p-4">
+
+
+<h4 class="title">
+
 Personal Information
+
 </h4>
 
 
@@ -285,10 +332,66 @@ Personal Information
 
 <div class="col-md-6">
 
+
+<p>
+<b>Full Name:</b>
+${client.fullname}
+</p>
+
+
 <p>
 <b>National ID:</b>
 ${client.nationalID}
 </p>
+
+
+</div>
+
+
+
+<div class="col-md-6">
+
+
+<p>
+<b>Date Registered:</b>
+${client.date || "N/A"}
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card p-4">
+
+
+<h4 class="title">
+
+Contact Information
+
+</h4>
+
+
+<hr>
+
+
+
+<div class="row">
+
+
+<div class="col-md-6">
 
 
 <p>
@@ -307,7 +410,6 @@ ${client.email}
 
 
 
-
 <div class="col-md-6">
 
 
@@ -323,21 +425,7 @@ ${client.address}
 </p>
 
 
-<p>
-<b>Date Registered:</b>
-${client.date}
-</p>
-
-
 </div>
-
-
-</div>
-
-
-
-</div>
-
 
 
 </div>
@@ -350,12 +438,17 @@ ${client.date}
 
 
 
-<div class="card p-4 mt-4">
 
 
-<h4>
-Employment Details
+<div class="card p-4">
+
+
+<h4 class="title">
+
+Employment Information
+
 </h4>
+
 
 <hr>
 
@@ -365,9 +458,11 @@ Employment Details
 
 <div class="col-md-6">
 
+
 <p>
 
 <b>Occupation:</b>
+
 ${client.occupation}
 
 </p>
@@ -376,12 +471,14 @@ ${client.occupation}
 <p>
 
 <b>Employer:</b>
+
 ${client.employer}
 
 </p>
 
 
 </div>
+
 
 
 
@@ -400,7 +497,6 @@ KES ${Number(client.monthlyIncome).toLocaleString()}
 </div>
 
 
-
 </div>
 
 
@@ -412,11 +508,14 @@ KES ${Number(client.monthlyIncome).toLocaleString()}
 
 
 
-<div class="card p-4 mt-4">
+
+<div class="card p-4">
 
 
-<h4>
+<h4 class="title">
+
 Identification Documents
+
 </h4>
 
 
@@ -429,32 +528,25 @@ Identification Documents
 <div class="col-md-6">
 
 
-<h6>
-ID Front
-</h6>
+<h6>ID Front</h6>
 
 
-<img 
-src="${client.idFront}"
-class="document-img">
+<img src="${client.idFront}"
+class="document">
 
 
 </div>
-
 
 
 
 <div class="col-md-6">
 
 
-<h6>
-ID Back
-</h6>
+<h6>ID Back</h6>
 
 
-<img 
-src="${client.idBack}"
-class="document-img">
+<img src="${client.idBack}"
+class="document">
 
 
 </div>
@@ -473,11 +565,13 @@ class="document-img">
 
 
 
-<div class="card p-4 mt-4">
+<div class="card p-4">
 
 
-<h4>
+<h4 class="title">
+
 Loan Summary
+
 </h4>
 
 
@@ -487,52 +581,35 @@ Loan Summary
 <div class="row text-center">
 
 
-
 <div class="col-md-4">
 
+<h3>0</h3>
 
-<h3>
-0
-</h3>
-
-<p>
-Total Loans
-</p>
-
+<p>Total Loans</p>
 
 </div>
 
 
 
-
 <div class="col-md-4">
-
 
 <h3>
 KES 0
 </h3>
 
-<p>
-Total Borrowed
-</p>
-
+<p>Total Borrowed</p>
 
 </div>
-
 
 
 
 <div class="col-md-4">
 
-
 <h3>
 KES 0
 </h3>
 
-<p>
-Current Balance
-</p>
-
+<p>Outstanding</p>
 
 </div>
 
@@ -541,14 +618,15 @@ Current Balance
 </div>
 
 
-
 </div>
 
 
 
 
 
-<div class="mt-4">
+
+
+<div>
 
 
 <button class="btn btn-success">
@@ -575,20 +653,14 @@ Delete Client
 </div>
 
 
-
-
 `;
-
 
 
 
 }
 
 
-
-
 loadClient();
-
 
 
 </script>

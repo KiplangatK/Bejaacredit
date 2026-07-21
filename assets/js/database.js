@@ -1,11 +1,10 @@
 /*=========================================================
     BEJJA LOAN CREDIT
     DATABASE ENGINE (database.js)
-    Version: 1.1
-    Fixed Client ID Matching
+    Version: 1.2
 =========================================================*/
 
-(function () {
+(function(){
 
 "use strict";
 
@@ -74,7 +73,6 @@ function initializeDatabase(){
                 }
 
             ])
-
         );
 
 
@@ -116,6 +114,7 @@ function write(key,value){
 
 
 
+
 /*=========================================================
     CLIENTS
 =========================================================*/
@@ -137,7 +136,6 @@ function saveClients(data){
     );
 
 }
-
 
 
 
@@ -169,21 +167,19 @@ function addClient(client){
 
 
 
-
 function getClientByPhone(phone){
 
 
     return getClients().find(
+
         c => c.phone === phone
+
     );
 
 
 }
 
 
-
-
-// FIXED ID SEARCH
 
 function getClientById(id){
 
@@ -199,7 +195,6 @@ function getClientById(id){
 
 
 
-
 function updateClient(updatedClient){
 
 
@@ -207,7 +202,7 @@ function updateClient(updatedClient){
 
 
 
-    clients=clients.map(c =>
+    clients = clients.map(c =>
 
 
         String(c.id) === String(updatedClient.id)
@@ -258,7 +253,6 @@ function saveApplications(data){
 
 
 
-
 function addApplication(application){
 
 
@@ -287,7 +281,6 @@ function addApplication(application){
 
 
 
-
 function getApplication(id){
 
 
@@ -302,7 +295,6 @@ function getApplication(id){
 
 
 
-
 function updateApplication(updated){
 
 
@@ -310,7 +302,7 @@ function updateApplication(updated){
 
 
 
-    apps=apps.map(a =>
+    apps = apps.map(a =>
 
 
         String(a.id) === String(updated.id)
@@ -335,11 +327,10 @@ function updateApplication(updated){
 
 
 
-
 function deleteApplication(id){
 
 
-    const apps=getApplications().filter(
+    const apps = getApplications().filter(
 
         a => String(a.id) !== String(id)
 
@@ -351,140 +342,203 @@ function deleteApplication(id){
 
 }
     /*=========================================================
-    BEJJA LOAN CREDIT
-    DATABASE ENGINE (database.js)
-    Version: 1.1
-    Fixed Client ID Matching
-=========================================================*/
-
-(function () {
-
-"use strict";
-
-
-/*=========================================================
-    INITIALIZE DATABASE
+    LOANS
 =========================================================*/
 
 
-function initializeDatabase(){
+function getLoans(){
 
-
-    if(!localStorage.getItem("clients")){
-
-        localStorage.setItem(
-            "clients",
-            JSON.stringify([])
-        );
-
-    }
-
-
-    if(!localStorage.getItem("loanApplications")){
-
-        localStorage.setItem(
-            "loanApplications",
-            JSON.stringify([])
-        );
-
-    }
-
-
-    if(!localStorage.getItem("loans")){
-
-        localStorage.setItem(
-            "loans",
-            JSON.stringify([])
-        );
-
-    }
-
-
-    if(!localStorage.getItem("payments")){
-
-        localStorage.setItem(
-            "payments",
-            JSON.stringify([])
-        );
-
-    }
-
-
-    if(!localStorage.getItem("staff")){
-
-
-        localStorage.setItem(
-            "staff",
-            JSON.stringify([
-
-                {
-                    id:1,
-                    username:"admin",
-                    password:"admin123",
-                    role:"Administrator",
-                    active:true
-                }
-
-            ])
-
-        );
-
-
-    }
-
-
-}
-
-
-initializeDatabase();
-
-
-
-
-/*=========================================================
-    STORAGE FUNCTIONS
-=========================================================*/
-
-
-function read(key){
-
-    return JSON.parse(
-        localStorage.getItem(key)
-    ) || [];
+    return read("loans");
 
 }
 
 
 
-function write(key,value){
+function saveLoans(data){
 
-    localStorage.setItem(
-        key,
-        JSON.stringify(value)
+    write(
+        "loans",
+        data
     );
 
 }
 
 
 
-
-/*=========================================================
-    CLIENTS
-=========================================================*/
+function addLoan(loan){
 
 
-function getClients(){
+    const loans=getLoans();
 
-    return read("clients");
+
+    loan.id=nextId(loans);
+
+
+    loan.createdAt=today();
+
+
+    loans.push(loan);
+
+
+    saveLoans(loans);
+
+
+    return loan;
+
 
 }
 
 
 
-function saveClients(data){
+function getLoan(id){
+
+
+    return getLoans().find(
+
+        l => String(l.id) === String(id)
+
+    );
+
+
+}
+
+
+
+function getLoanByClient(clientId){
+
+
+    return getLoans().find(
+
+        l =>
+
+        String(l.clientId) === String(clientId)
+
+        &&
+
+        l.status === "ACTIVE"
+
+    );
+
+
+}
+
+
+
+function updateLoan(updatedLoan){
+
+
+    let loans=getLoans();
+
+
+
+    loans = loans.map(l =>
+
+
+        String(l.id) === String(updatedLoan.id)
+
+        ?
+
+        updatedLoan
+
+        :
+
+        l
+
+
+    );
+
+
+
+    saveLoans(loans);
+
+
+}
+
+
+
+
+
+/*=========================================================
+    PAYMENTS
+=========================================================*/
+
+
+function getPayments(){
+
+    return read("payments");
+
+}
+
+
+
+function savePayments(data){
 
     write(
-        "clients",
+        "payments",
+        data
+    );
+
+}
+
+
+
+function addPayment(payment){
+
+
+    const payments=getPayments();
+
+
+    payment.id=nextId(payments);
+
+
+    payment.date=today();
+
+
+    payments.push(payment);
+
+
+    savePayments(payments);
+
+
+    return payment;
+
+
+}
+
+
+
+function getLoanPayments(loanId){
+
+
+    return getPayments().filter(
+
+        p => String(p.loanId) === String(loanId)
+
+    );
+
+
+}
+
+
+
+
+/*=========================================================
+    STAFF
+=========================================================*/
+
+
+function getStaff(){
+
+    return read("staff");
+
+}
+
+
+
+function saveStaff(data){
+
+    write(
+        "staff",
         data
     );
 
@@ -493,91 +547,150 @@ function saveClients(data){
 
 
 
-function addClient(client){
+
+/*=========================================================
+    DASHBOARD STATISTICS
+=========================================================*/
 
 
-    const clients=getClients();
+function totalClients(){
+
+    return getClients().length;
+
+}
 
 
-    client.id=nextId(clients);
+
+function totalApplications(){
+
+    return getApplications().length;
+
+}
 
 
-    client.createdAt=today();
+
+function pendingApplications(){
+
+    return getApplications().filter(
+
+        a => a.status === "PENDING"
+
+    ).length;
+
+}
 
 
-    client.status="ACTIVE";
+
+function approvedLoans(){
+
+    return getLoans().filter(
+
+        l => l.status === "ACTIVE"
+
+    ).length;
+
+}
 
 
-    clients.push(client);
+
+function rejectedLoans(){
+
+    return getApplications().filter(
+
+        a => a.status === "REJECTED"
+
+    ).length;
+
+}
 
 
-    saveClients(clients);
+
+function totalPrincipalIssued(){
 
 
-    return client;
+    let total=0;
+
+
+    getLoans().forEach(l=>{
+
+        total += Number(
+            l.originalPrincipal || 0
+        );
+
+    });
+
+
+    return total;
 
 
 }
 
 
 
-
-function getClientByPhone(phone){
-
-
-    return getClients().find(
-        c => c.phone === phone
-    );
+function outstandingPrincipal(){
 
 
-}
+    let total=0;
 
 
+    getLoans().forEach(l=>{
+
+        total += Number(
+            l.remainingPrincipal || 0
+        );
+
+    });
 
 
-// FIXED ID SEARCH
-
-function getClientById(id){
-
-
-    return getClients().find(
-
-        c => String(c.id) === String(id)
-
-    );
+    return total;
 
 
 }
 
 
 
-
-function updateClient(updatedClient){
-
-
-    let clients=getClients();
+function totalInterestCollected(){
 
 
-
-    clients=clients.map(c =>
-
-
-        String(c.id) === String(updatedClient.id)
-
-        ?
-
-        updatedClient
-
-        :
-
-        c
+    let total=0;
 
 
-    );
+    getPayments().forEach(p=>{
+
+
+        total += Number(
+            p.interestPaid || 0
+        );
+
+
+    });
+
+
+    return total;
+
+
+}
 
 
 
-    saveClients(clients);
+function totalPrincipalCollected(){
+
+
+    let total=0;
+
+
+    getPayments().forEach(p=>{
+
+
+        total += Number(
+            p.principalPaid || 0
+        );
+
+
+    });
+
+
+    return total;
 
 
 }
@@ -587,100 +700,67 @@ function updateClient(updatedClient){
 
 
 /*=========================================================
-    LOAN APPLICATIONS
+    HELPERS
 =========================================================*/
 
 
-function getApplications(){
-
-    return read("loanApplications");
-
-}
+function nextId(array){
 
 
+    if(array.length===0){
 
-function saveApplications(data){
+        return 1;
 
-    write(
-        "loanApplications",
-        data
-    );
-
-}
+    }
 
 
+    return Math.max(
 
+        ...array.map(
+            item=>Number(item.id)
+        )
 
-function addApplication(application){
-
-
-    const applications=getApplications();
-
-
-    application.id=nextId(applications);
-
-
-    application.applicationDate=today();
-
-
-    application.status="PENDING";
-
-
-    applications.push(application);
-
-
-    saveApplications(applications);
-
-
-    return application;
+    ) + 1;
 
 
 }
 
 
 
+function today(){
 
-function getApplication(id){
+    return new Date()
+    .toLocaleDateString("en-KE");
+
+}
 
 
-    return getApplications().find(
 
-        a => String(a.id) === String(id)
+function nextMonthDate(){
 
+
+    const d=new Date();
+
+
+    d.setMonth(
+        d.getMonth()+1
     );
 
 
+    return d.toLocaleDateString("en-KE");
+
+
 }
 
 
 
-
-function updateApplication(updated){
-
-
-    let apps=getApplications();
+function formatMoney(value){
 
 
+    return "KES " +
 
-    apps=apps.map(a =>
-
-
-        String(a.id) === String(updated.id)
-
-        ?
-
-        updated
-
-        :
-
-        a
-
-
-    );
-
-
-
-    saveApplications(apps);
+    Number(value)
+    .toLocaleString();
 
 
 }
@@ -688,17 +768,80 @@ function updateApplication(updated){
 
 
 
-function deleteApplication(id){
+
+/*=========================================================
+    PUBLIC API
+=========================================================*/
 
 
-    const apps=getApplications().filter(
-
-        a => String(a.id) !== String(id)
-
-    );
+window.DB={
 
 
-    saveApplications(apps);
+    // Clients
+
+    getClients,
+    saveClients,
+    addClient,
+    getClientByPhone,
+    getClientById,
+    updateClient,
 
 
-}
+    // Applications
+
+    getApplications,
+    saveApplications,
+    addApplication,
+    getApplication,
+    updateApplication,
+    deleteApplication,
+
+
+    // Loans
+
+    getLoans,
+    saveLoans,
+    addLoan,
+    getLoan,
+    getLoanByClient,
+    updateLoan,
+
+
+    // Payments
+
+    getPayments,
+    savePayments,
+    addPayment,
+    getLoanPayments,
+
+
+    // Staff
+
+    getStaff,
+    saveStaff,
+
+
+    // Statistics
+
+    totalClients,
+    totalApplications,
+    pendingApplications,
+    approvedLoans,
+    rejectedLoans,
+    totalPrincipalIssued,
+    outstandingPrincipal,
+    totalInterestCollected,
+    totalPrincipalCollected,
+
+
+    // Helpers
+
+    today,
+    nextMonthDate,
+    formatMoney
+
+
+};
+
+
+})();

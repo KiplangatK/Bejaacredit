@@ -1030,9 +1030,10 @@ password:password
 
 
 
-const result=AUTH.registerClient(client);
+const result = AUTH.registerClient(client);
 
-
+console.log("REGISTER RESULT:", result);
+console.log("SAVED CLIENTS:", DB.getClients());
 
 if(!result.success){
 
